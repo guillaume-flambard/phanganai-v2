@@ -25,7 +25,7 @@ export function FeaturedEvents() {
         <section className="mb-10">
             <div className="flex justify-between items-end mb-5">
                 <h3 className="text-xl font-bold tracking-tight">FEATURED RAVES</h3>
-                <a className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="#">View All</a>
+                <Link className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="/events">View All</Link>
             </div>
 
             <div className="flex gap-5 overflow-x-auto pb-6 -mx-5 px-5 hide-scrollbar">

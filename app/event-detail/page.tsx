@@ -7,19 +7,24 @@ import { EventPricing } from '../../components/features/event-detail/EventPricin
 import { EventAbout } from '../../components/features/event-detail/EventAbout';
 import { EventMap } from '../../components/features/event-detail/EventMap';
 import { EventFooter } from '../../components/features/event-detail/EventFooter';
+import { PageTransition } from '../../components/motion/PageTransition';
+import { FadeIn } from '../../components/motion/FadeIn';
+import { slideRightVariants } from '../../lib/animations';
 
 export default function EventDetailPage() {
     return (
         <MobileLayout className="pb-32">
-            <EventHero />
+            <PageTransition variant={slideRightVariants}>
+                <EventHero />
 
-            <div className="px-6 py-8 space-y-8">
-                <EventMeta />
-                <EventLineup />
-                <EventPricing />
-                <EventAbout />
-                <EventMap />
-            </div>
+                <div className="px-6 py-8 space-y-8">
+                    <EventMeta />
+                    <EventLineup />
+                    <FadeIn><EventPricing /></FadeIn>
+                    <FadeIn><EventAbout /></FadeIn>
+                    <FadeIn><EventMap /></FadeIn>
+                </div>
+            </PageTransition>
 
             <EventFooter />
         </MobileLayout>

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Calendar, Clock, MapPin } from 'lucide-react';
 
 export function EventMeta() {
     return (
         <div className="grid grid-cols-2 gap-4">
             <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <Calendar className="w-5 h-5" />
+                    <span className="material-icons">calendar_today</span>
                 </div>
                 <div>
                     <p className="text-xs text-slate-500 uppercase font-semibold">Date</p>
@@ -16,7 +15,7 @@ export function EventMeta() {
 
             <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <Clock className="w-5 h-5" />
+                    <span className="material-icons">schedule</span>
                 </div>
                 <div>
                     <p className="text-xs text-slate-500 uppercase font-semibold">Time</p>
@@ -26,7 +25,7 @@ export function EventMeta() {
 
             <div className="flex items-start gap-3 col-span-2">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <MapPin className="w-5 h-5" />
+                    <span className="material-icons">location_on</span>
                 </div>
                 <div className="flex-1">
                     <p className="text-xs text-slate-500 uppercase font-semibold">Location</p>

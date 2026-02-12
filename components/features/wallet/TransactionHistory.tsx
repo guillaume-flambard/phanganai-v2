@@ -1,19 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
-import { Wine, Ticket, Wallet, UtensilsCrossed } from 'lucide-react';
 
 const transactions = [
     {
-        icon: Wine,
+        icon: 'local_bar',
         iconColor: 'text-primary',
         iconBg: 'bg-primary/10',
-        label: 'Drink at OXA',
+        label: 'Drink at OXA Bar',
         date: '14 Oct \u2022 23:45',
         amount: '- \u0E3F250',
         amountColor: 'text-white',
     },
     {
-        icon: Ticket,
+        icon: 'confirmation_number',
         iconColor: 'text-primary',
         iconBg: 'bg-primary/10',
         label: 'Ticket Purchase',
@@ -22,7 +21,7 @@ const transactions = [
         amountColor: 'text-white',
     },
     {
-        icon: Wallet,
+        icon: 'account_balance_wallet',
         iconColor: 'text-gold',
         iconBg: 'bg-gold/10',
         label: 'Wallet Top-up',
@@ -31,7 +30,7 @@ const transactions = [
         amountColor: 'text-primary',
     },
     {
-        icon: UtensilsCrossed,
+        icon: 'restaurant',
         iconColor: 'text-primary',
         iconBg: 'bg-primary/10',
         label: 'Beach Club Dining',
@@ -43,7 +42,7 @@ const transactions = [
 
 export function TransactionHistory() {
     return (
-        <section className="px-6 mb-4">
+        <section className="mb-4">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-white/90">Recent Activity</h3>
                 <Link href="/transactions" className="text-primary/70 text-xs hover:text-primary transition-colors">
@@ -58,7 +57,7 @@ export function TransactionHistory() {
                     >
                         <div className="flex items-center gap-4">
                             <div className={`w-10 h-10 rounded-full ${tx.iconBg} flex items-center justify-center`}>
-                                <tx.icon className={`w-5 h-5 ${tx.iconColor}`} />
+                                <span className={`material-icons text-lg ${tx.iconColor}`}>{tx.icon}</span>
                             </div>
                             <div>
                                 <p className="text-sm font-semibold">{tx.label}</p>

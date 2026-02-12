@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { CreditCard } from 'lucide-react';
 
 const amounts = ['฿500', '฿1,000', '฿2,000'];
 
@@ -10,7 +9,7 @@ export function QuickActions() {
     const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
 
     return (
-        <div className="px-6">
+        <div>
             {/* Quick Top-Up */}
             <section className="mb-8">
                 <div className="flex justify-between items-center mb-4">
@@ -45,16 +44,16 @@ export function QuickActions() {
                 <div className="p-4 bg-surface-dark/60 border border-white/5 rounded-xl flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-                            <CreditCard className="w-5 h-5 text-blue-400" />
+                            <span className="material-icons text-blue-400">credit_card</span>
                         </div>
                         <div>
                             <p className="text-sm font-semibold">Omise / Credit Card</p>
                             <p className="text-xs text-white/40">Visa &bull;&bull;&bull;&bull; 4242</p>
                         </div>
                     </div>
-                    <button className="text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 bg-primary/10 rounded-full active:scale-95 transition-transform">
+                    <Link href="/payment-methods" className="text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 bg-primary/10 rounded-full active:scale-95 transition-transform">
                         Edit
-                    </button>
+                    </Link>
                 </div>
             </section>
         </div>

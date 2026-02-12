@@ -2,23 +2,21 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft } from 'lucide-react';
-import { Button } from '../../ui/Button';
+import { AnimatedProgress } from '@/components/motion/AnimatedProgress';
 
 export function CheckoutHeader() {
     const router = useRouter();
 
     return (
-        <div className="px-6 py-4 flex flex-col gap-4">
+        <div className="py-4 flex flex-col gap-4">
             <div className="flex items-center justify-between">
-                <Button
-                    variant="secondary"
-                    size="icon"
-                    className="rounded-full w-10 h-10 p-0 text-primary bg-primary/10 border-none hover:bg-primary/20"
+                <button
+                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
                     onClick={() => router.back()}
+                    aria-label="Go back"
                 >
-                    <ChevronLeft className="w-6 h-6" />
-                </Button>
+                    <span className="material-icons">arrow_back_ios_new</span>
+                </button>
                 <h1 className="text-xl font-bold tracking-tight">Checkout</h1>
                 <div className="w-10" />
             </div>
@@ -29,9 +27,11 @@ export function CheckoutHeader() {
                     <span>Payment Method</span>
                     <span>Step 1 of 2</span>
                 </div>
-                <div className="w-full h-1 bg-primary/20 rounded-full overflow-hidden">
-                    <div className="w-1/2 h-full bg-primary shadow-[0_0_8px_#13ec5b]" />
-                </div>
+                <AnimatedProgress
+                    progress={50}
+                    className="w-full h-1 bg-primary/20 rounded-full overflow-hidden"
+                    barClassName="h-full bg-primary shadow-[0_0_8px_#13ec5b]"
+                />
             </div>
         </div>
     );

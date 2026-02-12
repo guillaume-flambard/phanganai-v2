@@ -1,5 +1,4 @@
 import React from 'react';
-import { MapPin } from 'lucide-react';
 import { GlassCard } from '../../ui/GlassCard';
 
 export function EventMap() {
@@ -13,7 +12,7 @@ export function EventMap() {
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center animate-pulse shadow-[0_0_15px_rgba(19,236,91,0.5)]">
-                        <MapPin className="w-5 h-5 text-background-dark" />
+                        <span className="material-icons text-background-dark text-xl">location_on</span>
                     </div>
                 </div>
             </div>

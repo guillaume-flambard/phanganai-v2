@@ -5,15 +5,18 @@ import { QuickActions } from "../components/features/home/QuickActions";
 import { FeaturedEvents } from "../components/features/home/FeaturedEvents";
 import { PeakEnergyNow } from "../components/features/home/PeakEnergyNow";
 import { BottomNav } from "../components/navigation/BottomNav";
+import { PageTransition } from "../components/motion/PageTransition";
 
 export default function Home() {
   return (
     <MobileLayout>
-      <HomeHeader />
-      <WalletBalanceCard />
-      <QuickActions />
-      <FeaturedEvents />
-      <PeakEnergyNow />
+      <PageTransition>
+        <HomeHeader />
+        <WalletBalanceCard />
+        <QuickActions />
+        <FeaturedEvents />
+        <PeakEnergyNow />
+      </PageTransition>
       <BottomNav />
     </MobileLayout>
   );

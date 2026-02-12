@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const actions = [
     { icon: 'qr_code_scanner', label: 'Scan', href: '/scan-to-pay' },
-    { icon: 'map', label: 'Explore', href: '#' },
+    { icon: 'map', label: 'Explore', href: '/events' },
     { icon: 'local_activity', label: 'Tickets', href: '/ticket' },
     { icon: 'history', label: 'Past', href: '/transactions' },
 ];
