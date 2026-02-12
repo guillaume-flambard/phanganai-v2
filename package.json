@@ -6,9 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cap:sync": "next build && npx cap sync",
+    "cap:ios": "next build && npx cap sync ios && npx cap open ios",
+    "cap:android": "next build && npx cap sync android && npx cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.1.0",
+    "@capacitor/cli": "^8.1.0",
+    "@capacitor/core": "^8.1.0",
+    "@capacitor/ios": "^8.1.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",

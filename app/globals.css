@@ -49,6 +49,19 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  }
+
+  .jungle-gradient {
+    background: radial-gradient(circle at top right, rgba(51, 242, 13, 0.15), transparent),
+                radial-gradient(circle at bottom left, rgba(51, 242, 13, 0.1), transparent);
+  }
+
+  .ticket-shadow {
+    box-shadow: 0 0 40px rgba(19, 236, 91, 0.2);
+  }
 }
 
 :root {

@@ -1,9 +1,9 @@
 import { MobileLayout } from "../components/layout/MobileLayout";
 import { HomeHeader } from "../components/features/home/HomeHeader";
 import { WalletBalanceCard } from "../components/features/home/WalletBalanceCard";
+import { QuickActions } from "../components/features/home/QuickActions";
 import { FeaturedEvents } from "../components/features/home/FeaturedEvents";
-import { EventFilters } from "../components/features/home/EventFilters";
-import { DiscoveryFeed } from "../components/features/home/DiscoveryFeed";
+import { PeakEnergyNow } from "../components/features/home/PeakEnergyNow";
 import { BottomNav } from "../components/navigation/BottomNav";
 
 export default function Home() {
@@ -11,9 +11,9 @@ export default function Home() {
     <MobileLayout>
       <HomeHeader />
       <WalletBalanceCard />
+      <QuickActions />
       <FeaturedEvents />
-      <EventFilters />
-      <DiscoveryFeed />
+      <PeakEnergyNow />
       <BottomNav />
     </MobileLayout>
   );

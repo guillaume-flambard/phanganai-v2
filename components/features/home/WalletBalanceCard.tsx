@@ -1,38 +1,39 @@
 import React from 'react';
 import Link from 'next/link';
-import { PlusCircle, ShieldCheck, Lock } from 'lucide-react';
 
 export function WalletBalanceCard() {
     return (
-        <section className="px-6 mb-8">
-            <Link href="/wallet" className="block">
-                <div className="bg-gradient-to-br from-primary/20 via-background-dark to-primary/5 rounded-[2rem] p-6 border border-primary/20 relative overflow-hidden neon-glow group hover:border-primary/40 transition-colors">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 blur-3xl" />
+        <section className="mb-10">
+            <div className="relative rounded-2xl p-5 bg-background-dark/90 overflow-hidden shadow-2xl border border-[#b38728]/40">
+                <div className="absolute inset-0 rounded-2xl gold-gradient opacity-15 pointer-events-none" />
+                <div className="absolute inset-0 bg-[#ffd700]/5 pointer-events-none" />
 
-                    <div className="relative z-10 flex justify-between items-end">
-                        <div>
-                            <span className="text-primary text-xs font-bold uppercase tracking-widest">Wallet Balance</span>
-                            <div className="text-4xl font-bold mt-1 tracking-tight">฿1,250.00</div>
-                        </div>
-
-                        <span className="bg-primary text-background-dark font-bold px-6 py-3 rounded-full flex items-center gap-2 group-hover:brightness-110 transition-all shadow-[0_0_15px_rgba(19,236,91,0.3)]">
-                            <PlusCircle className="w-5 h-5" />
-                            Top Up
-                        </span>
+                <div className="flex justify-between items-start relative z-10">
+                    <div>
+                        <p className="text-[10px] uppercase tracking-widest text-[#ffd700]/70 font-bold mb-1">Available Credits</p>
+                        <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+                            4,250.00 <span className="text-sm font-medium text-[#ffd700]">PAI</span>
+                        </h2>
                     </div>
-
-                    <div className="mt-6 flex gap-4 text-[10px] text-white/40 font-medium uppercase tracking-tighter">
-                        <span className="flex items-center gap-1">
-                            <ShieldCheck className="w-3 h-3 text-gold" />
-                            Verified User
-                        </span>
-                        <span className="flex items-center gap-1">
-                            <Lock className="w-3 h-3" />
-                            Encrypted Wallet
-                        </span>
+                    <div className="bg-[#ffd700]/10 p-2 rounded-lg">
+                        <span className="material-icons text-[#ffd700] text-xl">account_balance_wallet</span>
                     </div>
                 </div>
-            </Link>
+
+                <div className="mt-6 flex justify-between items-end relative z-10">
+                    <div className="flex -space-x-2">
+                        <div className="w-8 h-8 rounded-full border-2 border-background-dark bg-primary/20 flex items-center justify-center">
+                            <span className="material-icons text-[14px] text-primary">confirmation_number</span>
+                        </div>
+                        <div className="w-8 h-8 rounded-full border-2 border-background-dark bg-[#ffd700]/20 flex items-center justify-center">
+                            <span className="material-icons text-[14px] text-[#ffd700]">star</span>
+                        </div>
+                    </div>
+                    <Link href="/top-up" className="bg-[#ffd700] text-background-dark px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-[#ffd700]/20">
+                        Quick Top Up
+                    </Link>
+                </div>
+            </div>
         </section>
     );
 }

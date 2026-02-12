@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#102216"/>
+  <circle cx="256" cy="256" r="230.4" fill="rgba(19,236,91,0.15)"/>
+  <circle cx="256" cy="256" r="128" fill="rgba(19,236,91,0.1)"/>
+  <text x="256" y="296.96" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="256" fill="#13ec5b">P</text>
+  <circle cx="368.64" cy="153.6" r="17.92" fill="#13ec5b"/>
+</svg>

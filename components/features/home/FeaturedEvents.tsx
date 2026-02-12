@@ -1,50 +1,61 @@
 import React from 'react';
 import Link from 'next/link';
 
+const events = [
+    {
+        id: 1,
+        title: 'Eden Garden Rave',
+        location: 'Haad Rin Jungle, Phangan',
+        price: '1,200 PAI',
+        badge: 'Tonight',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCx2ThiJrZWGAiAss6mLXXqmH5mYK_1pWma6dBHnjNOSrOWyCx-4Br4dUpGDTso3zTfkGdKGg1ZrCGHwHGdHAUgZgjAS_77ZdeyzS4REnwwRNyBRilbl9wKoxcyQf-RKpTSN8c3mm9oJIO3MTo4sRkl0JjKtNR91dNA_JCpgJR31KauqqR5BfMVpTC96B8zHlngjTtqZDbFpIOFthQo2-RiBnJikPijECOz_CLJbtP3ARZFYB-Qsg2di-G9jjVE1PsmMDJDxau-RWw',
+    },
+    {
+        id: 2,
+        title: 'Waterfall Ritual',
+        location: 'Baan Kai, Phangan',
+        price: '850 PAI',
+        badge: 'SAT 24',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsXd-joHxtYFIMuzIDtP2akpOxKhhafT7ks_E1OkdQuoOMez9WuDuQLAKluHHofecan491ET2HaqcFILpA1K9wU47mCFWFNsyIgt0jUQKlkB-56uVYZpGTly-nU1XCOcrVAYSGl5eJ0dRM9iHEAsT0u4yaEnVXxcTS4sm2wlycAqACB8kL9qXrYba4Dadx-ENLdceDi7JsLk6c8QPF_Nn-xkAEs1fza7A_Qa8pstHh0TQVLC7cQJhiLDNuCfzualrhi6chkTdjP78',
+    },
+];
+
 export function FeaturedEvents() {
     return (
-        <section className="mb-8">
-            <div className="px-6 flex justify-between items-center mb-4">
-                <h2 className="text-lg font-bold tracking-tight">Featured Parties</h2>
-                <span className="text-primary text-sm font-medium cursor-pointer hover:text-primary/80">See All</span>
+        <section className="mb-10">
+            <div className="flex justify-between items-end mb-5">
+                <h3 className="text-xl font-bold tracking-tight">FEATURED RAVES</h3>
+                <a className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="#">View All</a>
             </div>
 
-            <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 px-6 pb-2">
-                {/* OXA Party Card */}
-                <Link href="/event-detail" className="flex-shrink-0 w-[85%] snap-center relative aspect-[16/10] rounded-[2rem] overflow-hidden group border border-white/5 cursor-pointer block">
-                    <img
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        alt="Neon light beach party at OXA Beach Club"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOTLXnq5LOB4z2nmGha7f84hWTAZ4BscqTD9ggKVT7LDonJw2ObRGV9A_BVJ-x1w3cpN9whUja_kR9l7YhSyd8eD14LWLxP2_anXqAZgpTksdZQABQXjfA0m5MU1NxnihmGheUHzx5Wl5gNxyGsPGYzAXPPw2wuswS8pghW8TmWMzKHO2XUR8fkCqppxl0LKGtk1BU-4LWe1wi4V_zceWq6Bu6lamWsi3g4HGZIZoL0S2nfGhMX9dtQm-jzVLly8ZtKxw7bWE5vpo"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-90"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="bg-gold text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter">Gold Exclusive</span>
-                            <span className="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary/30">Tonight</span>
+            <div className="flex gap-5 overflow-x-auto pb-6 -mx-5 px-5 hide-scrollbar">
+                {events.map((event) => (
+                    <Link href="/event-detail" key={event.id} className="min-w-[280px] relative group block">
+                        <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="glass-card rounded-xl overflow-hidden relative">
+                            <div className="h-44 w-full relative">
+                                <img alt={event.title} className="w-full h-full object-cover" src={event.image} />
+                                <div className="absolute top-3 right-3 bg-background-dark/80 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-bold border border-white/10 uppercase">
+                                    {event.badge}
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent" />
+                            </div>
+                            <div className="p-4 pt-0 -mt-6 relative z-10">
+                                <h4 className="text-lg font-bold text-white mb-1">{event.title}</h4>
+                                <p className="text-xs text-white/60 flex items-center gap-1 mb-4">
+                                    <span className="material-icons text-[14px] text-primary">location_on</span> {event.location}
+                                </p>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-primary font-bold">{event.price}</span>
+                                    <button className="bg-primary text-background-dark text-[10px] font-black uppercase px-4 py-2 rounded-lg neon-glow">
+                                        Book Spot
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-bold leading-tight">OXA Beach: Techno Jungle</h3>
-                        <p className="text-white/60 text-xs mt-1">Bantai Beach • Starting from ฿500</p>
-                    </div>
-                </Link>
-
-                {/* Half Moon Card */}
-                <div className="flex-shrink-0 w-[85%] snap-center relative aspect-[16/10] rounded-[2rem] overflow-hidden group border border-white/5">
-                    <img
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        alt="Crowd dancing at a large jungle festival"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ2jKDYbo0xcADRmvX_4-rrEH_P8bAYtaSfZ3m5znLde2AS7pT41D15-m62g-5Vh7IwGtY5e8JEAyRetmWGz8FNuI9dLR-JJtPcG35JxdFMBBCMdiHUhdRMZfam6nfj87rL3tI1cCneHJh-HhOrKpNXyuSTbwUu9s4o2M8etR5irWxSUMgepY05c5N_zcLmkq2prhDnv5unbEvGAPJsnwzpWyjwEV_5Fiz3G2GbNZ9YXYS_06nm1eRxJItiREp5VXwu8T7_QeZloM"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-90"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary/30">Upcoming</span>
-                        </div>
-                        <h3 className="text-xl font-bold leading-tight">Half Moon Festival</h3>
-                        <p className="text-white/60 text-xs mt-1">Jungle Arena • Starting from ฿1,200</p>
-                    </div>
-                </div>
+                    </Link>
+                ))}
             </div>
-        </section >
+        </section>
     );
 }

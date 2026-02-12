@@ -1,22 +1,23 @@
 import React from 'react';
+import Link from 'next/link';
 
 export function HomeHeader() {
     return (
-        <header className="px-6 flex justify-between items-center mb-6 pt-2">
+        <header className="flex justify-between items-center mb-8">
             <div>
-                <p className="text-primary/60 text-sm font-medium">Sawasdee,</p>
-                <h1 className="text-2xl font-bold tracking-tight">Alex Riva</h1>
+                <p className="text-xs uppercase tracking-[0.2em] text-primary/80 font-semibold mb-1">Welcome to the Jungle</p>
+                <h1 className="text-2xl font-bold tracking-tight">ALEX RAVE <span className="text-primary">.</span></h1>
             </div>
-            <div className="relative">
-                <div className="w-12 h-12 rounded-full border-2 border-primary/30 p-0.5 overflow-hidden">
+            <Link href="/profile" className="relative">
+                <div className="w-12 h-12 rounded-xl overflow-hidden ring-2 ring-primary/30">
                     <img
-                        className="w-full h-full object-cover rounded-full bg-slate-800"
-                        alt="User profile"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsdl0S6QXMYyo8X3wGgExc05-azWDNeUg68AHwJcfZQJ-VPLI8_AJG3BkSBKHQjvlm2AL-5mkEP_bVO7pq3W2C2ltf7V02xSr2GPi0GRFpopqbVM8sqSiwBzhM4PNce9Sx4W-MRaf_tb9roWM4lJv1ONJuv3HrWxQ6FSRhUD8le2AYQwbqXgv2clMVsLhaVyKOh0upmHZtdIMYJGjAI4-TG9t7e-08i6nYzsa07FBplKwN_8zae34SGA2BtwIpHzKoHKwS2oa2Pp0"
+                        className="w-full h-full object-cover"
+                        alt="Profile"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVVi_9BU6Pgy_Al2Gdq6ApYwIXO2DXveeJ0IR18KrQkFMkMl4kpY_gm5Y5K4Yb1fx9IYQRFIg5y3TA2FsPNmrrr76JYPO9FMADLD63ad5AaoEE28kVAOTF7BD4xeiK4y2fCo774gVXzLN1NrqhkS5iWmzee60Qh-7KRcem6nZQW0nDWeL-uuIjrvnBRNiIYyP0HUCujMhzRH3ADk9M8HEkgpO6Cm9jRF1sxUiEIy92nvOUsbOxU4OGtYJYf_jWLrZqdPqyffEqhoc"
                     />
                 </div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-primary rounded-full border-2 border-background-dark"></div>
-            </div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-background-dark neon-glow" />
+            </Link>
         </header>
     );
 }
