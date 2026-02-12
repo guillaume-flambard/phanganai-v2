@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { CreditCard } from 'lucide-react';
 
 const amounts = ['฿500', '฿1,000', '฿2,000'];
@@ -32,9 +33,9 @@ export function QuickActions() {
                     ))}
                 </div>
                 {selectedAmount && (
-                    <button className="w-full mt-4 py-3 bg-primary text-background-dark font-bold rounded-full neon-glow active:scale-[0.98] transition-transform">
+                    <Link href="/top-up" className="w-full mt-4 py-3 bg-primary text-background-dark font-bold rounded-full neon-glow active:scale-[0.98] transition-transform block text-center">
                         Top Up {selectedAmount}
-                    </button>
+                    </Link>
                 )}
             </section>
 
