@@ -12,7 +12,7 @@ export function WalletBalanceCard() {
                     <div>
                         <p className="text-[10px] uppercase tracking-widest text-[#ffd700]/70 font-bold mb-1">Available Credits</p>
                         <h2 className="text-3xl font-bold text-white flex items-center gap-2">
-                            4,250.00 <span className="text-sm font-medium text-[#ffd700]">PAI</span>
+                            ฿4,250 <span className="text-sm font-medium text-[#ffd700]">THB</span>
                         </h2>
                     </div>
                     <div className="bg-[#ffd700]/10 p-2 rounded-lg">

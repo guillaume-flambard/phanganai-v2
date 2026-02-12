@@ -17,7 +17,7 @@ export function PeakEnergyNow() {
                     />
                 </div>
                 <div className="flex-1">
-                    <h5 className="text-sm font-bold uppercase">Guy&apos;s Bar Jungle Session</h5>
+                    <h5 className="text-sm font-bold uppercase">OXA — OASIS Stage</h5>
                     <div className="flex items-center gap-2 mt-1">
                         <div className="flex -space-x-1">
                             <div className="w-5 h-5 rounded-full border border-background-dark bg-primary/40 overflow-hidden">

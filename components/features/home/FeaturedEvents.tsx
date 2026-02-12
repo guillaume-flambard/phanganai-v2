@@ -4,17 +4,17 @@ import Link from 'next/link';
 const events = [
     {
         id: 1,
-        title: 'Eden Garden Rave',
-        location: 'Haad Rin Jungle, Phangan',
-        price: '1,200 PAI',
+        title: 'OXA: Jungle Party',
+        location: 'Koh Phangan',
+        price: '฿500',
         badge: 'Tonight',
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCx2ThiJrZWGAiAss6mLXXqmH5mYK_1pWma6dBHnjNOSrOWyCx-4Br4dUpGDTso3zTfkGdKGg1ZrCGHwHGdHAUgZgjAS_77ZdeyzS4REnwwRNyBRilbl9wKoxcyQf-RKpTSN8c3mm9oJIO3MTo4sRkl0JjKtNR91dNA_JCpgJR31KauqqR5BfMVpTC96B8zHlngjTtqZDbFpIOFthQo2-RiBnJikPijECOz_CLJbtP3ARZFYB-Qsg2di-G9jjVE1PsmMDJDxau-RWw',
     },
     {
         id: 2,
-        title: 'Waterfall Ritual',
-        location: 'Baan Kai, Phangan',
-        price: '850 PAI',
+        title: 'Half Moon Festival',
+        location: 'Ban Tai, Phangan',
+        price: '฿2,500',
         badge: 'SAT 24',
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsXd-joHxtYFIMuzIDtP2akpOxKhhafT7ks_E1OkdQuoOMez9WuDuQLAKluHHofecan491ET2HaqcFILpA1K9wU47mCFWFNsyIgt0jUQKlkB-56uVYZpGTly-nU1XCOcrVAYSGl5eJ0dRM9iHEAsT0u4yaEnVXxcTS4sm2wlycAqACB8kL9qXrYba4Dadx-ENLdceDi7JsLk6c8QPF_Nn-xkAEs1fza7A_Qa8pstHh0TQVLC7cQJhiLDNuCfzualrhi6chkTdjP78',
     },
