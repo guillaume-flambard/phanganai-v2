@@ -1,19 +1,26 @@
+'use client';
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '../../ui/Button';
-import Link from 'next/link';
 
 export function CheckoutHeader() {
+    const router = useRouter();
+
     return (
         <div className="px-6 py-4 flex flex-col gap-4">
             <div className="flex items-center justify-between">
-                <Link href="/event-detail">
-                    <Button variant="secondary" size="icon" className="rounded-full w-10 h-10 p-0 text-primary bg-primary/10 border-none hover:bg-primary/20">
-                        <ChevronLeft className="w-6 h-6" />
-                    </Button>
-                </Link>
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="rounded-full w-10 h-10 p-0 text-primary bg-primary/10 border-none hover:bg-primary/20"
+                    onClick={() => router.back()}
+                >
+                    <ChevronLeft className="w-6 h-6" />
+                </Button>
                 <h1 className="text-xl font-bold tracking-tight">Checkout</h1>
-                <div className="w-10"></div> {/* Spacer */}
+                <div className="w-10" />
             </div>
 
             {/* Step Indicator */}
@@ -23,7 +30,7 @@ export function CheckoutHeader() {
                     <span>Step 1 of 2</span>
                 </div>
                 <div className="w-full h-1 bg-primary/20 rounded-full overflow-hidden">
-                    <div className="w-1/2 h-full bg-primary shadow-[0_0_8px_#13ec5b]"></div>
+                    <div className="w-1/2 h-full bg-primary shadow-[0_0_8px_#13ec5b]" />
                 </div>
             </div>
         </div>

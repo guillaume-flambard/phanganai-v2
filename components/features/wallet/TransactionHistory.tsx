@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Wine, Ticket, Wallet, UtensilsCrossed } from 'lucide-react';
 
 const transactions = [
@@ -45,13 +46,15 @@ export function TransactionHistory() {
         <section className="px-6 mb-4">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-white/90">Recent Activity</h3>
-                <button className="text-primary/70 text-xs">View all</button>
+                <Link href="/transactions" className="text-primary/70 text-xs hover:text-primary transition-colors">
+                    View all
+                </Link>
             </div>
             <div className="space-y-3">
                 {transactions.map((tx) => (
                     <div
                         key={tx.label}
-                        className="p-4 bg-surface-dark/40 border border-white/5 rounded-xl flex items-center justify-between"
+                        className="p-4 bg-surface-dark/40 border border-white/5 rounded-xl flex items-center justify-between hover:bg-primary/5 transition-colors cursor-pointer"
                     >
                         <div className="flex items-center gap-4">
                             <div className={`w-10 h-10 rounded-full ${tx.iconBg} flex items-center justify-center`}>

@@ -8,7 +8,7 @@ const navItems = [
     { icon: Home, label: "Home", href: "/" },
     { icon: Map, label: "Map", href: "#" },
     { icon: Wallet, label: "Wallet", href: "/wallet" },
-    { icon: User, label: "Profile", href: "#" },
+    { icon: User, label: "Profile", href: "/profile" },
 ];
 
 export function BottomNav() {
