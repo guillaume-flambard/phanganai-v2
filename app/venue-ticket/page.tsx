@@ -7,13 +7,59 @@ import { PageTransition } from '../../components/motion/PageTransition';
 import { slideRightVariants } from '../../lib/animations';
 import { share } from '../../lib/share';
 import { haptics } from '../../lib/haptics';
+import { useTickets } from '@/lib/hooks/use-tickets';
 
 export default function VenueTicketPage() {
+    const { tickets, loading } = useTickets();
+    const ticket = tickets[0] ?? null;
+
     const handleMaxBrightness = useCallback(() => {
         haptics.impact('light');
         const el = document.documentElement;
         el.requestFullscreen?.();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen relative overflow-hidden font-display text-white">
+                <div className="fixed inset-0 z-0 bg-background-dark" />
+                <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
+                    <div className="h-8 w-32 bg-white/10 rounded animate-pulse mb-4" />
+                    <div className="h-5 w-48 bg-white/10 rounded animate-pulse mb-8" />
+                    <div className="w-full aspect-[4/5] bg-white/10 rounded-xl animate-pulse" />
+                </main>
+                <BottomNav />
+            </div>
+        );
+    }
+
+    if (!ticket) {
+        return (
+            <div className="min-h-screen relative overflow-hidden font-display text-white">
+                <div className="fixed inset-0 z-0 bg-background-dark" />
+                <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
+                    <span className="material-icons text-6xl text-primary/20 mb-4">confirmation_number</span>
+                    <h2 className="text-xl font-bold mb-2">No Active Tickets</h2>
+                    <p className="text-white/40 text-sm mb-6">Browse events to grab your next ticket.</p>
+                    <Link href="/events" className="bg-primary text-background-dark px-6 py-3 rounded-full font-bold text-sm">
+                        Browse Events
+                    </Link>
+                </main>
+                <BottomNav />
+            </div>
+        );
+    }
+
+    const eventDate = new Date(ticket.event.date);
+    const formattedDate = eventDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+    });
+    const formattedTime = eventDate.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+    });
 
     return (
         <div className="min-h-screen relative overflow-hidden font-display text-white">
@@ -47,7 +93,7 @@ export default function VenueTicketPage() {
                             <span className="text-xs uppercase tracking-[0.2em] text-primary font-bold">Entry Ticket</span>
                         </div>
                         <button
-                            onClick={() => share({ title: 'My Venue Ticket - OXA Koh Phangan', url: window.location.href })}
+                            onClick={() => share({ title: `My Venue Ticket - ${ticket.event.title}`, url: window.location.href })}
                             className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md"
                             aria-label="Share ticket"
                         >
@@ -59,8 +105,8 @@ export default function VenueTicketPage() {
                     <div className="w-full flex-1 flex flex-col items-center justify-center">
                         {/* Event Info */}
                         <div className="text-center mb-6">
-                            <h1 className="text-3xl font-bold text-white mb-1">OXA</h1>
-                            <p className="text-white/60 font-medium">Friday, Oct 27 &bull; 9:00 PM</p>
+                            <h1 className="text-3xl font-bold text-white mb-1">{ticket.event.title}</h1>
+                            <p className="text-white/60 font-medium">{formattedDate} &bull; {formattedTime}</p>
                         </div>
 
                         {/* Scannable Card */}
@@ -84,7 +130,7 @@ export default function VenueTicketPage() {
                             {/* Pass ID */}
                             <div className="w-full text-center mt-6">
                                 <div className="text-[10px] uppercase tracking-widest text-black/40 mb-1">Pass ID</div>
-                                <div className="text-black font-mono font-bold text-lg">OXA-7729-BK24</div>
+                                <div className="text-black font-mono font-bold text-lg">{ticket.qr_code}</div>
                             </div>
                         </div>
 

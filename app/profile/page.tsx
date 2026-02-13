@@ -11,9 +11,55 @@ import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
 import { AnimatedCounter } from '../../components/motion/AnimatedCounter';
 import { AnimatedProgress } from '../../components/motion/AnimatedProgress';
 import { haptics } from '../../lib/haptics';
+import { useProfile } from '@/lib/hooks/use-profile';
+import { useAuthContext } from '@/components/providers/AuthProvider';
+
+const tierConfig: Record<string, { label: string; color: string }> = {
+    bronze: { label: 'Bronze', color: 'text-amber-600' },
+    silver: { label: 'Silver', color: 'text-gray-400' },
+    gold: { label: 'Gold Tier', color: 'text-gold' },
+    vip: { label: 'VIP', color: 'text-gold' },
+};
 
 export default function ProfilePage() {
     const router = useRouter();
+    const { profile, loading } = useProfile();
+    const { signOut } = useAuthContext();
+
+    const tier = tierConfig[profile?.tier ?? 'bronze'] ?? tierConfig.bronze;
+
+    const handleLogout = async () => {
+        haptics.impact('light');
+        await signOut();
+        toast('Logged out');
+        router.push('/login');
+    };
+
+    if (loading) {
+        return (
+            <MobileLayout>
+                <PageTransition>
+                    <header className="pt-6 pb-6 flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-white/10 animate-pulse" />
+                        <div className="space-y-2">
+                            <div className="h-5 w-32 bg-white/10 rounded animate-pulse" />
+                            <div className="h-4 w-24 bg-white/10 rounded animate-pulse" />
+                        </div>
+                    </header>
+                    <main className="flex-1 space-y-6 pb-32 lg:pb-8">
+                        <div className="bg-surface-dark rounded-xl p-6 border border-white/5 h-48 animate-pulse" />
+                        <div className="bg-white/5 rounded-xl p-5 h-20 animate-pulse" />
+                        <div className="space-y-2">
+                            {[1, 2, 3, 4].map((i) => (
+                                <div key={i} className="h-16 bg-white/5 rounded-xl animate-pulse" />
+                            ))}
+                        </div>
+                    </main>
+                </PageTransition>
+                <BottomNav />
+            </MobileLayout>
+        );
+    }
 
     return (
         <MobileLayout>
@@ -26,15 +72,17 @@ export default function ProfilePage() {
                                 <img
                                     alt="User Profile"
                                     className="w-full h-full rounded-full object-cover border-2 border-background-dark"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6cXBN2W08Wkj2lzjwyh7osbQL-VdV_v4be1LwYJcN3CsU0eBnUVKCFDj0Qbcum5g2BvR9FacRgpfy1MX6-9E56l1EA7V2Lqi4UixdCf5b08gPPMN45j3RF3voP-5LpnoVTe8FxjxLgOjh1JWOwmGgIlreCkCjhZyK-iw2qeutDJtCzO9XoDEOwLDTtZmAkK9MtvrwENneB9HwUqW5hYdHRSJ6Esi7Qox-rFZ-2im5TJLjRPSR5PFRNB_umi5XTF94pg0dalDYZ8"
+                                    src={profile?.avatar_url ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6cXBN2W08Wkj2lzjwyh7osbQL-VdV_v4be1LwYJcN3CsU0eBnUVKCFDj0Qbcum5g2BvR9FacRgpfy1MX6-9E56l1EA7V2Lqi4UixdCf5b08gPPMN45j3RF3voP-5LpnoVTe8FxjxLgOjh1JWOwmGgIlreCkCjhZyK-iw2qeutDJtCzO9XoDEOwLDTtZmAkK9MtvrwENneB9HwUqW5hYdHRSJ6Esi7Qox-rFZ-2im5TJLjRPSR5PFRNB_umi5XTF94pg0dalDYZ8'}
                                 />
                             </div>
-                            <div className="absolute -bottom-1 -right-1 bg-gold text-background-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                                VIP
-                            </div>
+                            {(profile?.tier === 'vip' || profile?.tier === 'gold') && (
+                                <div className="absolute -bottom-1 -right-1 bg-gold text-background-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                    {tier.label}
+                                </div>
+                            )}
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold tracking-tight">Alex Rivera</h1>
+                            <h1 className="text-xl font-bold tracking-tight">{profile?.display_name ?? 'User'}</h1>
                             <p className="text-primary text-sm font-medium flex items-center gap-1">
                                 Full Moon Resident
                                 <span className="material-icons text-gold text-sm">verified</span>
@@ -46,18 +94,20 @@ export default function ProfilePage() {
                     </Link>
                 </header>
 
-                <main className="flex-1 space-y-6 pb-32 lg:pb-8">
+                <main className="flex-1 space-y-6 pb-32 lg:pb-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:space-y-0">
+                    {/* Left Column on Desktop */}
+                    <div className="lg:col-span-5 space-y-6">
                     {/* Loyalty Progress Card */}
                     <section className="bg-surface-dark rounded-xl p-6 border border-white/5 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16" />
                         <div className="flex justify-between items-start mb-6">
                             <div>
                                 <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-1">Loyalty Points</p>
-                                <h2 className="text-3xl font-bold"><AnimatedCounter target={2450} /> <span className="text-sm font-normal text-white/40">pts</span></h2>
+                                <h2 className="text-3xl font-bold"><AnimatedCounter target={profile?.loyalty_points ?? 0} /> <span className="text-sm font-normal text-white/40">pts</span></h2>
                             </div>
                             <div className="bg-gold/10 px-3 py-1 rounded-full flex items-center gap-1 border border-gold/20">
                                 <span className="material-icons text-gold text-sm">workspace_premium</span>
-                                <span className="text-gold text-xs font-bold uppercase tracking-wider">Gold Tier</span>
+                                <span className={`${tier.color} text-xs font-bold uppercase tracking-wider`}>{tier.label}</span>
                             </div>
                         </div>
                         <div className="space-y-3">
@@ -90,7 +140,10 @@ export default function ProfilePage() {
                         </div>
                         <span className="material-icons text-background-dark/40 group-hover:translate-x-1 transition-transform">chevron_right</span>
                     </section>
+                    </div>
 
+                    {/* Right Column on Desktop */}
+                    <div className="lg:col-span-7 space-y-6">
                     {/* Account Management Menu */}
                     <div className="space-y-2">
                         <h4 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-2 mb-3">Account Management</h4>
@@ -105,7 +158,6 @@ export default function ProfilePage() {
                                         <span className="font-medium">My Tickets</span>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <span className="bg-primary text-background-dark text-[10px] font-black px-1.5 py-0.5 rounded-md">2 NEW</span>
                                         <span className="material-icons text-white/20">chevron_right</span>
                                     </div>
                                 </Link>
@@ -151,12 +203,13 @@ export default function ProfilePage() {
 
                     {/* Log Out */}
                     <button
-                        onClick={() => { toast('Logged out'); haptics.impact('light'); router.push('/'); }}
+                        onClick={handleLogout}
                         className="w-full py-4 text-red-400 font-medium text-sm flex items-center justify-center gap-2"
                     >
                         <span className="material-icons text-sm">logout</span>
                         Log Out
                     </button>
+                    </div>
                 </main>
             </PageTransition>
 

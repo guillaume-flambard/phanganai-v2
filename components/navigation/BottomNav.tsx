@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useNotificationStore } from '@/lib/stores/notification-store';
+import { useNotifications } from '@/lib/hooks/use-notifications';
 import { haptics } from '@/lib/haptics';
 
 const navItems = [
@@ -14,7 +14,7 @@ const navItems = [
 
 export function BottomNav() {
     const pathname = usePathname();
-    const unreadCount = useNotificationStore((s) => s.unreadCount);
+    const { unreadCount } = useNotifications();
 
     return (
         <div className="fixed left-5 right-5 z-50 lg:hidden" style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.5rem)' }}>

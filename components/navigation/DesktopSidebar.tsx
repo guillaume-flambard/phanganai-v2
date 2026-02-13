@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useNotificationStore } from '@/lib/stores/notification-store';
+import { useNotifications } from '@/lib/hooks/use-notifications';
 
 const navItems = [
     { icon: 'home', label: 'Home', href: '/' },
@@ -21,7 +21,7 @@ const bottomItems = [
 
 export function DesktopSidebar() {
     const pathname = usePathname();
-    const unreadCount = useNotificationStore((s) => s.unreadCount);
+    const { unreadCount } = useNotifications();
 
     const isActive = (href: string) =>
         href === '/' ? pathname === '/' : pathname.startsWith(href);

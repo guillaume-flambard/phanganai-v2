@@ -7,9 +7,74 @@ import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { share } from '../../lib/share';
 import { haptics } from '../../lib/haptics';
+import { useTickets } from '@/lib/hooks/use-tickets';
+import { useProfile } from '@/lib/hooks/use-profile';
 
 export default function TicketPage() {
     const [maxBrightness, setMaxBrightness] = useState(false);
+    const { tickets, loading } = useTickets();
+    const { profile } = useProfile();
+
+    const ticket = tickets[0] ?? null;
+
+    if (loading) {
+        return (
+            <MobileLayout>
+                <PageTransition>
+                    <header className="py-4 flex justify-between items-center">
+                        <Link href="/profile" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary" aria-label="Back to profile">
+                            <span className="material-icons">arrow_back</span>
+                        </Link>
+                        <h1 className="text-sm font-bold tracking-widest text-primary uppercase">My Ticket</h1>
+                        <div className="w-10 h-10" />
+                    </header>
+                    <main className="flex-1 flex flex-col items-center pb-32 lg:pb-8 lg:max-w-lg lg:mx-auto lg:w-full">
+                        <div className="h-8 w-32 bg-white/10 rounded animate-pulse mt-4 mb-4" />
+                        <div className="h-5 w-48 bg-white/10 rounded animate-pulse mb-8" />
+                        <div className="w-full max-w-[280px] aspect-square bg-white/10 rounded-xl animate-pulse" />
+                        <div className="mt-8 w-full bg-white/5 rounded-lg p-5 h-40 animate-pulse" />
+                    </main>
+                </PageTransition>
+                <BottomNav />
+            </MobileLayout>
+        );
+    }
+
+    if (!ticket) {
+        return (
+            <MobileLayout>
+                <PageTransition>
+                    <header className="py-4 flex justify-between items-center">
+                        <Link href="/profile" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary" aria-label="Back to profile">
+                            <span className="material-icons">arrow_back</span>
+                        </Link>
+                        <h1 className="text-sm font-bold tracking-widest text-primary uppercase">My Ticket</h1>
+                        <div className="w-10 h-10" />
+                    </header>
+                    <main className="flex-1 flex flex-col items-center justify-center pb-32 lg:pb-8 lg:max-w-lg lg:mx-auto lg:w-full">
+                        <span className="material-icons text-6xl text-primary/20 mb-4">confirmation_number</span>
+                        <h2 className="text-xl font-bold mb-2">No Active Tickets</h2>
+                        <p className="text-white/40 text-sm mb-6">Browse events to grab your next ticket.</p>
+                        <Link href="/events" className="bg-primary text-background-dark px-6 py-3 rounded-full font-bold text-sm">
+                            Browse Events
+                        </Link>
+                    </main>
+                </PageTransition>
+                <BottomNav />
+            </MobileLayout>
+        );
+    }
+
+    const eventDate = new Date(ticket.event.date);
+    const formattedDate = eventDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+    });
+    const formattedTime = eventDate.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+    });
 
     return (
         <MobileLayout>
@@ -21,7 +86,7 @@ export default function TicketPage() {
                     </Link>
                     <h1 className="text-sm font-bold tracking-widest text-primary uppercase">My Ticket</h1>
                     <button
-                        onClick={() => share({ title: 'My Ticket - OXA Koh Phangan', url: window.location.href })}
+                        onClick={() => share({ title: `My Ticket - ${ticket.event.title}`, url: window.location.href })}
                         className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
                         aria-label="Share ticket"
                     >
@@ -29,13 +94,13 @@ export default function TicketPage() {
                     </button>
                 </header>
 
-                <main className="flex-1 flex flex-col items-center pb-32">
+                <main className="flex-1 flex flex-col items-center pb-32 lg:pb-8 lg:max-w-lg lg:mx-auto lg:w-full">
                     {/* Event Info */}
                     <div className="text-center mt-4 mb-8">
-                        <h2 className="text-3xl font-bold tracking-tight mb-2">OXA</h2>
+                        <h2 className="text-3xl font-bold tracking-tight mb-2">{ticket.event.title}</h2>
                         <div className="flex items-center justify-center gap-2 text-primary/80">
                             <span className="material-icons text-sm">calendar_today</span>
-                            <span className="text-sm font-medium">Friday, Oct 27 &bull; 21:00 PM</span>
+                            <span className="text-sm font-medium">{formattedDate} &bull; {formattedTime}</span>
                         </div>
                     </div>
 
@@ -71,11 +136,11 @@ export default function TicketPage() {
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Ticket Type</p>
-                                <p className="font-bold text-lg text-primary">VIP Early Bird</p>
+                                <p className="font-bold text-lg text-primary">{ticket.tier.name}</p>
                             </div>
                             <div className="text-right">
                                 <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Holder</p>
-                                <p className="font-bold text-lg">Alex Rivera</p>
+                                <p className="font-bold text-lg">{profile?.display_name ?? 'Ticket Holder'}</p>
                             </div>
                         </div>
                         <div className="h-px bg-white/10 w-full" />
