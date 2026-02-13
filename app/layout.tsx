@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import { ServiceWorkerRegistrar } from "../components/ServiceWorkerRegistrar";
 import { ToastProvider } from "../components/ui/ToastProvider";
 import { DesktopSidebar } from "../components/navigation/DesktopSidebar";
+import { AuthProvider } from "@/components/providers/AuthProvider";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -45,12 +46,14 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} antialiased bg-background-dark text-white font-display`}
       >
-        <DesktopSidebar />
-        <div className="lg:pl-64">
-          {children}
-        </div>
-        <ToastProvider />
-        <ServiceWorkerRegistrar />
+        <AuthProvider>
+          <DesktopSidebar />
+          <div className="lg:pl-64">
+            {children}
+          </div>
+          <ToastProvider />
+          <ServiceWorkerRegistrar />
+        </AuthProvider>
       </body>
     </html>
   );
