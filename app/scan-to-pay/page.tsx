@@ -42,7 +42,7 @@ export default function ScanToPayPage() {
 
     return (
         <AuthGuard>
-        <MobileLayout className="pb-0">
+            <MobileLayout className="pb-0">
             <PageTransition variant={slideUpVariants}>
                 <div className="relative flex flex-col lg:flex-row lg:gap-8 lg:items-start" style={{ minHeight: 'calc(100vh - 3rem)' }}>
                     {/* Top Navigation */}
@@ -163,7 +163,7 @@ export default function ScanToPayPage() {
                     </div>
                 </div>
             </PageTransition>
-        </MobileLayout>
+            </MobileLayout>
         </AuthGuard>
     );
 }

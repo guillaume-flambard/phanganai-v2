@@ -23,7 +23,7 @@ export default function VenueTicketPage() {
     if (loading) {
         return (
             <AuthGuard>
-            <div className="min-h-screen relative overflow-hidden font-display text-white">
+                <div className="min-h-screen relative overflow-hidden font-display text-white">
                 <div className="fixed inset-0 z-0 bg-background-dark" />
                 <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
                     <div className="h-8 w-32 bg-white/10 rounded animate-pulse mb-4" />
@@ -31,7 +31,7 @@ export default function VenueTicketPage() {
                     <div className="w-full aspect-[4/5] bg-white/10 rounded-xl animate-pulse" />
                 </main>
                 <BottomNav />
-            </div>
+                </div>
             </AuthGuard>
         );
     }
@@ -39,7 +39,7 @@ export default function VenueTicketPage() {
     if (!ticket) {
         return (
             <AuthGuard>
-            <div className="min-h-screen relative overflow-hidden font-display text-white">
+                <div className="min-h-screen relative overflow-hidden font-display text-white">
                 <div className="fixed inset-0 z-0 bg-background-dark" />
                 <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
                     <span className="material-icons text-6xl text-primary/20 mb-4">confirmation_number</span>
@@ -50,7 +50,7 @@ export default function VenueTicketPage() {
                     </Link>
                 </main>
                 <BottomNav />
-            </div>
+                </div>
             </AuthGuard>
         );
     }
@@ -68,7 +68,7 @@ export default function VenueTicketPage() {
 
     return (
         <AuthGuard>
-        <div className="min-h-screen relative overflow-hidden font-display text-white">
+            <div className="min-h-screen relative overflow-hidden font-display text-white">
             {/* Background Layer */}
             <div className="fixed inset-0 z-0">
                 <img
@@ -165,7 +165,7 @@ export default function VenueTicketPage() {
             <BottomNav />
 
             {/* iOS Home Indicator */}
-        </div>
+            </div>
         </AuthGuard>
     );
 }

@@ -21,7 +21,7 @@ export default function TicketPage() {
     if (loading) {
         return (
             <AuthGuard>
-            <MobileLayout>
+                <MobileLayout>
                 <PageTransition>
                     <header className="py-4 flex justify-between items-center">
                         <Link href="/profile" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary" aria-label="Back to profile">
@@ -38,7 +38,7 @@ export default function TicketPage() {
                     </main>
                 </PageTransition>
                 <BottomNav />
-            </MobileLayout>
+                </MobileLayout>
             </AuthGuard>
         );
     }
@@ -46,7 +46,7 @@ export default function TicketPage() {
     if (!ticket) {
         return (
             <AuthGuard>
-            <MobileLayout>
+                <MobileLayout>
                 <PageTransition>
                     <header className="py-4 flex justify-between items-center">
                         <Link href="/profile" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary" aria-label="Back to profile">
@@ -65,7 +65,7 @@ export default function TicketPage() {
                     </main>
                 </PageTransition>
                 <BottomNav />
-            </MobileLayout>
+                </MobileLayout>
             </AuthGuard>
         );
     }
@@ -83,7 +83,7 @@ export default function TicketPage() {
 
     return (
         <AuthGuard>
-        <MobileLayout>
+            <MobileLayout>
             <PageTransition>
                 {/* Header */}
                 <header className="py-4 flex justify-between items-center">
@@ -179,7 +179,7 @@ export default function TicketPage() {
             </PageTransition>
 
             <BottomNav />
-        </MobileLayout>
+            </MobileLayout>
         </AuthGuard>
     );
 }
