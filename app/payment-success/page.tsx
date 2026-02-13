@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
@@ -16,9 +17,10 @@ export default function PaymentSuccessPage() {
     }, []);
 
     return (
-        <MobileLayout className="pb-8">
+        <AuthGuard>
+        <MobileLayout className="pb-8 lg:pb-8">
             <PageTransition variant={scaleIn}>
-                <StaggerList className="flex flex-col">
+                <StaggerList className="flex flex-col lg:max-w-xl lg:mx-auto">
                     {/* Success Header */}
                     <StaggerItem>
                         <div className="flex-1 flex flex-col items-center justify-center px-8 text-center pt-8">
@@ -104,5 +106,6 @@ export default function PaymentSuccessPage() {
                 </StaggerList>
             </PageTransition>
         </MobileLayout>
+        </AuthGuard>
     );
 }

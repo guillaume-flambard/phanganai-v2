@@ -61,6 +61,7 @@ export default function ProfilePage() {
 
     if (loading) {
         return (
+            <AuthGuard>
             <MobileLayout>
                 <PageTransition>
                     <header className="pt-6 pb-6 flex items-center gap-4">
@@ -82,10 +83,12 @@ export default function ProfilePage() {
                 </PageTransition>
                 <BottomNav />
             </MobileLayout>
+            </AuthGuard>
         );
     }
 
     return (
+        <AuthGuard>
         <MobileLayout>
             <PageTransition>
                 {/* Header */}
@@ -256,5 +259,6 @@ export default function ProfilePage() {
 
             <BottomNav />
         </MobileLayout>
+        </AuthGuard>
     );
 }

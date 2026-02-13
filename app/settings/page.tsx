@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
@@ -28,8 +29,9 @@ export default function SettingsPage() {
     const [promoNotifs, setPromoNotifs] = useState(true);
 
     return (
-        <MobileLayout>
-            <PageTransition variant={slideRightVariants}>
+        <AuthGuard>
+            <MobileLayout>
+                <PageTransition variant={slideRightVariants}>
                 <header className="py-4 flex items-center justify-between">
                     <button
                         onClick={() => router.back()}
@@ -42,7 +44,7 @@ export default function SettingsPage() {
                     <div className="w-10" />
                 </header>
 
-                <div className="pb-32 space-y-8 mt-4">
+                <div className="pb-32 space-y-8 mt-4 lg:max-w-3xl lg:mx-auto lg:pb-8">
                     {/* Notifications */}
                     <section>
                         <h2 className="text-xs font-bold uppercase tracking-widest text-primary/50 mb-4 ml-1">Notifications</h2>
@@ -89,47 +91,50 @@ export default function SettingsPage() {
                         </div>
                     </section>
 
-                    {/* Privacy */}
-                    <section>
-                        <h2 className="text-xs font-bold uppercase tracking-widest text-primary/50 mb-4 ml-1">Privacy & Security</h2>
-                        <StaggerList className="space-y-2">
-                            <StaggerItem>
-                                <div className="p-4 bg-white/5 rounded-xl flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="material-icons text-white/60">fingerprint</span>
-                                        <span className="font-medium">Biometric Login</span>
+                    <div className="lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0">
+                        {/* Privacy */}
+                        <section>
+                            <h2 className="text-xs font-bold uppercase tracking-widest text-primary/50 mb-4 ml-1">Privacy & Security</h2>
+                            <StaggerList className="space-y-2">
+                                <StaggerItem>
+                                    <div className="p-4 bg-white/5 rounded-xl flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-icons text-white/60">fingerprint</span>
+                                            <span className="font-medium">Biometric Login</span>
+                                        </div>
+                                        <span className="material-icons text-white/20">chevron_right</span>
                                     </div>
-                                    <span className="material-icons text-white/20">chevron_right</span>
-                                </div>
-                            </StaggerItem>
-                            <StaggerItem>
-                                <div className="p-4 bg-white/5 rounded-xl flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <span className="material-icons text-white/60">privacy_tip</span>
-                                        <span className="font-medium">Privacy Policy</span>
+                                </StaggerItem>
+                                <StaggerItem>
+                                    <div className="p-4 bg-white/5 rounded-xl flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-icons text-white/60">privacy_tip</span>
+                                            <span className="font-medium">Privacy Policy</span>
+                                        </div>
+                                        <span className="material-icons text-white/20">chevron_right</span>
                                     </div>
-                                    <span className="material-icons text-white/20">chevron_right</span>
-                                </div>
-                            </StaggerItem>
-                        </StaggerList>
-                    </section>
+                                </StaggerItem>
+                            </StaggerList>
+                        </section>
 
-                    {/* About */}
-                    <section>
-                        <h2 className="text-xs font-bold uppercase tracking-widest text-primary/50 mb-4 ml-1">About</h2>
-                        <div className="p-4 bg-white/5 rounded-xl space-y-3">
-                            <div className="flex justify-between">
-                                <span className="text-white/60">App Version</span>
-                                <span className="font-medium">2.0.0</span>
+                        {/* About */}
+                        <section>
+                            <h2 className="text-xs font-bold uppercase tracking-widest text-primary/50 mb-4 ml-1">About</h2>
+                            <div className="p-4 bg-white/5 rounded-xl space-y-3">
+                                <div className="flex justify-between">
+                                    <span className="text-white/60">App Version</span>
+                                    <span className="font-medium">2.0.0</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-white/60">Build</span>
+                                    <span className="font-medium text-white/40">2024.10.27</span>
+                                </div>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-white/60">Build</span>
-                                <span className="font-medium text-white/40">2024.10.27</span>
-                            </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </div>
-            </PageTransition>
-        </MobileLayout>
+                </PageTransition>
+            </MobileLayout>
+        </AuthGuard>
     );
 }

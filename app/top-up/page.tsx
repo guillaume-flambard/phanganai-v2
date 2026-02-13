@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { slideRightVariants } from '../../lib/animations';
@@ -59,6 +60,7 @@ export default function TopUpPage() {
     };
 
     return (
+        <AuthGuard>
         <MobileLayout>
             <PageTransition variant={slideRightVariants}>
                 {/* Header */}
@@ -160,5 +162,6 @@ export default function TopUpPage() {
                 </footer>
             </PageTransition>
         </MobileLayout>
+        </AuthGuard>
     );
 }

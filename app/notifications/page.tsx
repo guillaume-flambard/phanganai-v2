@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
@@ -43,6 +44,7 @@ export default function NotificationsPage() {
 
     if (loading) {
         return (
+            <AuthGuard>
             <MobileLayout>
                 <PageTransition>
                     <header className="pt-6 pb-4 flex items-center justify-between lg:max-w-3xl lg:mx-auto">
@@ -63,10 +65,12 @@ export default function NotificationsPage() {
                 </PageTransition>
                 <BottomNav />
             </MobileLayout>
+            </AuthGuard>
         );
     }
 
     return (
+        <AuthGuard>
         <MobileLayout>
             <PageTransition>
                 <header className="pt-6 pb-4 flex items-center justify-between lg:max-w-3xl lg:mx-auto">
@@ -129,5 +133,6 @@ export default function NotificationsPage() {
             </PageTransition>
             <BottomNav />
         </MobileLayout>
+        </AuthGuard>
     );
 }

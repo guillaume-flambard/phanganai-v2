@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
@@ -73,7 +74,8 @@ export default function TransactionsPage() {
     const sections = groupTransactionsByDate(transactions);
 
     return (
-        <div className="min-h-screen relative overflow-x-hidden pb-24 lg:pb-8">
+        <AuthGuard>
+            <div className="min-h-screen relative overflow-x-hidden pb-24 lg:pb-8">
             {/* Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="jungle-gradient absolute inset-0" />
@@ -196,6 +198,7 @@ export default function TransactionsPage() {
             </div>
 
             <BottomNav />
-        </div>
+            </div>
+        </AuthGuard>
     );
 }

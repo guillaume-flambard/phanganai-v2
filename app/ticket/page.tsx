@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
@@ -19,6 +20,7 @@ export default function TicketPage() {
 
     if (loading) {
         return (
+            <AuthGuard>
             <MobileLayout>
                 <PageTransition>
                     <header className="py-4 flex justify-between items-center">
@@ -37,11 +39,13 @@ export default function TicketPage() {
                 </PageTransition>
                 <BottomNav />
             </MobileLayout>
+            </AuthGuard>
         );
     }
 
     if (!ticket) {
         return (
+            <AuthGuard>
             <MobileLayout>
                 <PageTransition>
                     <header className="py-4 flex justify-between items-center">
@@ -62,6 +66,7 @@ export default function TicketPage() {
                 </PageTransition>
                 <BottomNav />
             </MobileLayout>
+            </AuthGuard>
         );
     }
 
@@ -77,6 +82,7 @@ export default function TicketPage() {
     });
 
     return (
+        <AuthGuard>
         <MobileLayout>
             <PageTransition>
                 {/* Header */}
@@ -174,5 +180,6 @@ export default function TicketPage() {
 
             <BottomNav />
         </MobileLayout>
+        </AuthGuard>
     );
 }

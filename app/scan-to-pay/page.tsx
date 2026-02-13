@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { slideUpVariants } from '../../lib/animations';
@@ -40,6 +41,7 @@ export default function ScanToPayPage() {
     };
 
     return (
+        <AuthGuard>
         <MobileLayout className="pb-0">
             <PageTransition variant={slideUpVariants}>
                 <div className="relative flex flex-col lg:flex-row lg:gap-8 lg:items-start" style={{ minHeight: 'calc(100vh - 3rem)' }}>
@@ -162,5 +164,6 @@ export default function ScanToPayPage() {
                 </div>
             </PageTransition>
         </MobileLayout>
+        </AuthGuard>
     );
 }

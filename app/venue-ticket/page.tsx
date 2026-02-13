@@ -2,6 +2,7 @@
 
 import React, { useCallback } from 'react';
 import Link from 'next/link';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { slideRightVariants } from '../../lib/animations';
@@ -21,6 +22,7 @@ export default function VenueTicketPage() {
 
     if (loading) {
         return (
+            <AuthGuard>
             <div className="min-h-screen relative overflow-hidden font-display text-white">
                 <div className="fixed inset-0 z-0 bg-background-dark" />
                 <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
@@ -30,11 +32,13 @@ export default function VenueTicketPage() {
                 </main>
                 <BottomNav />
             </div>
+            </AuthGuard>
         );
     }
 
     if (!ticket) {
         return (
+            <AuthGuard>
             <div className="min-h-screen relative overflow-hidden font-display text-white">
                 <div className="fixed inset-0 z-0 bg-background-dark" />
                 <main className="relative z-10 flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-6">
@@ -47,6 +51,7 @@ export default function VenueTicketPage() {
                 </main>
                 <BottomNav />
             </div>
+            </AuthGuard>
         );
     }
 
@@ -62,6 +67,7 @@ export default function VenueTicketPage() {
     });
 
     return (
+        <AuthGuard>
         <div className="min-h-screen relative overflow-hidden font-display text-white">
             {/* Background Layer */}
             <div className="fixed inset-0 z-0">
@@ -160,5 +166,6 @@ export default function VenueTicketPage() {
 
             {/* iOS Home Indicator */}
         </div>
+        </AuthGuard>
     );
 }

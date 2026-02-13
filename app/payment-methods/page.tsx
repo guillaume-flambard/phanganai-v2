@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
@@ -50,10 +51,11 @@ export default function PaymentMethodsPage() {
     };
 
     return (
+        <AuthGuard>
         <MobileLayout>
             <PageTransition variant={slideRightVariants}>
                 {/* Header */}
-                <header className="px-6 py-4 flex items-center justify-between sticky top-0 z-40 ios-blur bg-background-dark/80">
+                <header className="px-6 py-4 flex items-center justify-between sticky top-0 z-40 ios-blur bg-background-dark/80 lg:px-0">
                     <button
                         onClick={() => router.back()}
                         className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary"
@@ -65,7 +67,7 @@ export default function PaymentMethodsPage() {
                     <div className="w-10" />
                 </header>
 
-                <main className="px-6 pb-32">
+                <main className="px-6 pb-32 lg:max-w-2xl lg:mx-auto lg:px-0 lg:pb-8">
                     {/* Saved Cards */}
                     <section className="mt-8">
                         <div className="flex items-center justify-between mb-6">
@@ -147,7 +149,7 @@ export default function PaymentMethodsPage() {
             </PageTransition>
 
             {/* Add Card CTA */}
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark to-transparent">
+            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark to-transparent lg:static lg:bg-transparent lg:max-w-2xl lg:mx-auto lg:px-0 lg:pt-4">
                 <button
                     onClick={addCard}
                     className="w-full bg-primary text-background-dark font-bold py-4 rounded-full flex items-center justify-center gap-2 neon-glow active:scale-[0.98] transition-transform"
@@ -155,8 +157,9 @@ export default function PaymentMethodsPage() {
                     <span className="material-icons text-xl">add</span>
                     Add New Payment Card
                 </button>
-                <div className="h-4" />
+                <div className="h-4 lg:h-0" />
             </div>
         </MobileLayout>
+        </AuthGuard>
     );
 }

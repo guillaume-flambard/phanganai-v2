@@ -1,4 +1,7 @@
+'use client';
+
 import React, { Suspense } from 'react';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { CheckoutHeader } from '../../components/features/checkout/CheckoutHeader';
 import { OrderSummary } from '../../components/features/checkout/OrderSummary';
@@ -9,7 +12,8 @@ import { slideRightVariants } from '../../lib/animations';
 
 export default function CheckoutPage() {
     return (
-        <MobileLayout className="pb-32">
+        <AuthGuard>
+            <MobileLayout className="pb-32">
             <PageTransition variant={slideRightVariants}>
                 <CheckoutHeader />
 
@@ -36,6 +40,7 @@ export default function CheckoutPage() {
             <Suspense fallback={null}>
                 <PaymentButton />
             </Suspense>
-        </MobileLayout>
+            </MobileLayout>
+        </AuthGuard>
     );
 }
