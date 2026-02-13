@@ -27,6 +27,7 @@ export interface Event {
   image_url: string;
   is_featured: boolean;
   status: EventStatus;
+  source_url: string | null;
   created_at: string;
 }
 

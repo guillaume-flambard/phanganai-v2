@@ -3,6 +3,7 @@ import { HomeHeader } from "../components/features/home/HomeHeader";
 import { WalletBalanceCard } from "../components/features/home/WalletBalanceCard";
 import { QuickActions } from "../components/features/home/QuickActions";
 import { FeaturedEvents } from "../components/features/home/FeaturedEvents";
+import { DiscoveryFeed } from "../components/features/home/DiscoveryFeed";
 import { PeakEnergyNow } from "../components/features/home/PeakEnergyNow";
 import { BottomNav } from "../components/navigation/BottomNav";
 import { PageTransition } from "../components/motion/PageTransition";
@@ -27,6 +28,7 @@ export default function Home() {
             <div className="lg:hidden">
               <PeakEnergyNow />
             </div>
+            <DiscoveryFeed />
           </div>
         </div>
       </PageTransition>
