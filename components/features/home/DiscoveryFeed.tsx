@@ -1,59 +1,60 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { GlassCard } from '../../ui/GlassCard';
 import { StaggerList, StaggerItem } from '../../motion/StaggerList';
+import { useEvents } from '@/lib/hooks/use-events';
 
-const events = [
-    {
-        id: 1,
-        title: "OXA: Jungle Party",
-        date: "Friday, Oct 12",
-        location: "Koh Phangan",
-        price: "฿500",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAcyiHagYeLytG3El1EJoKbpWfYLLNDYCqEG6EEq25mxlx3uCLrkNsuVCjuD42WqtgYSSGsV3U1UQ6BIOEYAfXminjaBo4fHL8t_FHqVSVPq15wEUZxXSD87TTBI_ePTwVj2Uz2OYZjM9hSGBHq8CrQwO8CIcwCx1eRuVQIBj1B2ANudbDIZJqvsK-AiKSfkoGUdhEklkA0mIw3Ug0PRNYWbxl5RC6ztwJCyR2z2v_DWTxZ_S6dEf8sqNc0bTo7RWa-DdstAHV8OuM",
-        isGold: true
-    },
-    {
-        id: 2,
-        title: "Lighthouse: Full Moon Eve",
-        date: "Saturday, Oct 13",
-        location: "Leela Beach",
-        price: "฿600",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCZkr3C0n7V53d76g9YpxNqKksss_eXqz5nFCKqvBVMPZukla-cigclFgcn6QSToMk6gvJJuq9va94CL5tuTiLM11ipPP_OpwdntZ6sfrw8OENPxI-i9dbzjzGpm85KovSz_r0SFfNGdaQSbINpCXcyNTgaOAEpaMg4LAzfmcWWjAv9RpaJW8lU0k3ehHLWwIMuAMt92lVj0WeKjudNruZKboJVx8okNY2VpeH0vPt5Wlon-loXsGoIpOh5pbMj2gSnhs9SIVcoNXo"
-    },
-    {
-        id: 3,
-        title: "Secret Mountain: Sunset Session",
-        date: "Thursday, Oct 19",
-        location: "Secret Mountain",
-        price: "฿500",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAjxWNNiUGDnxga7JDvXCJbkluS_frS2_wtJ4c9OoVclCv7D9gr2R7k3DSAKGNe5Gry8d0tlU3bJ6TU5xt6vF5y-K95DIzQUiXJBeoLDCF5F-OEkhJyYn4G0XPV_6FeVGh-WouQfnrt0G8RB9O9ySS4RugIYSwkoTvoJ2r9FuB9ebui0YXDhBEpvJhBOL9IRxiTNqF3Y8juGFm4vLWByHTfmdR40Fk-7H4pgfWPJgXhLHq7Gx08lgBmaKsM73husdKYuuWZHwWNkPs"
-    }
-];
+const FALLBACK_IMAGE =
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAcyiHagYeLytG3El1EJoKbpWfYLLNDYCqEG6EEq25mxlx3uCLrkNsuVCjuD42WqtgYSSGsV3U1UQ6BIOEYAfXminjaBo4fHL8t_FHqVSVPq15wEUZxXSD87TTBI_ePTwVj2Uz2OYZjM9hSGBHq8CrQwO8CIcwCx1eRuVQIBj1B2ANudbDIZJqvsK-AiKSfkoGUdhEklkA0mIw3Ug0PRNYWbxl5RC6ztwJCyR2z2v_DWTxZ_S6dEf8sqNc0bTo7RWa-DdstAHV8OuM';
 
-import Link from 'next/link';
-// ... imports
-
-// ... events array
+function formatDate(dateStr: string): string {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+}
 
 export function DiscoveryFeed() {
+    const { events, loading } = useEvents();
+
+    if (loading) {
+        return (
+            <section className="px-6 lg:px-0 pb-32 lg:pb-8">
+                <h2 className="text-lg font-bold tracking-tight mb-4">Discovery Feed</h2>
+                <div className="space-y-4 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="animate-pulse">
+                            <GlassCard className="p-3 rounded-xl flex gap-4 items-center">
+                                <div className="w-20 h-20 rounded-lg bg-white/5 flex-shrink-0" />
+                                <div className="flex-grow space-y-2">
+                                    <div className="h-3 bg-white/5 rounded w-1/3" />
+                                    <div className="h-5 bg-white/5 rounded w-3/4" />
+                                    <div className="h-3 bg-white/5 rounded w-1/2" />
+                                </div>
+                            </GlassCard>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
+    }
+
     return (
         <section className="px-6 lg:px-0 pb-32 lg:pb-8">
             <h2 className="text-lg font-bold tracking-tight mb-4">Discovery Feed</h2>
             <StaggerList className="space-y-4 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
                 {events.map((event) => (
                     <StaggerItem key={event.id}>
-                    <Link href="/event-detail" className="block group">
+                    <Link href={`/event-detail?slug=${event.slug}`} className="block group">
                         <GlassCard className="p-3 rounded-xl flex gap-4 items-center group-hover:bg-white/5 transition-colors">
                             <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                                <img className="w-full h-full object-cover" src={event.image} alt={event.title} />
+                                <img className="w-full h-full object-cover" src={event.image_url || FALLBACK_IMAGE} alt={event.title} />
                             </div>
 
                             <div className="flex-grow">
                                 <div className="flex justify-between items-start">
-                                    <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 block ${event.isGold ? 'text-gold' : 'text-primary'}`}>
-                                        {event.date}
+                                    <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 block ${event.title.toLowerCase().includes('oxa') ? 'text-gold' : 'text-primary'}`}>
+                                        {formatDate(event.date)}
                                     </span>
                                     <span className="material-icons text-white/30 text-base">bookmark_border</span>
                                 </div>
@@ -64,8 +65,7 @@ export function DiscoveryFeed() {
                             </div>
 
                             <div className="text-right">
-                                <div className="text-xs text-white/40">From</div>
-                                <div className="font-bold text-primary">{event.price}</div>
+                                <div className="text-xs text-white/40">{event.venue}</div>
                             </div>
                         </GlassCard>
                     </Link>

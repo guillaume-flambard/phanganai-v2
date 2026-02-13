@@ -8,57 +8,22 @@ import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
 import { slideRightVariants } from '../../lib/animations';
 import { GlassCard } from '../../components/ui/GlassCard';
+import { useEvents } from '@/lib/hooks/use-events';
 
 const filters = ['All Events', 'Techno', 'House', 'Trance', 'Beach'];
 
-const events = [
-    {
-        id: 1,
-        title: 'OXA: Jungle Party',
-        date: 'Friday, Oct 12',
-        location: 'Koh Phangan',
-        price: '฿500',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcyiHagYeLytG3El1EJoKbpWfYLLNDYCqEG6EEq25mxlx3uCLrkNsuVCjuD42WqtgYSSGsV3U1UQ6BIOEYAfXminjaBo4fHL8t_FHqVSVPq15wEUZxXSD87TTBI_ePTwVj2Uz2OYZjM9hSGBHq8CrQwO8CIcwCx1eRuVQIBj1B2ANudbDIZJqvsK-AiKSfkoGUdhEklkA0mIw3Ug0PRNYWbxl5RC6ztwJCyR2z2v_DWTxZ_S6dEf8sqNc0bTo7RWa-DdstAHV8OuM',
-        isGold: true,
-    },
-    {
-        id: 2,
-        title: 'Lighthouse: Full Moon Eve',
-        date: 'Saturday, Oct 13',
-        location: 'Leela Beach',
-        price: '฿600',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZkr3C0n7V53d76g9YpxNqKksss_eXqz5nFCKqvBVMPZukla-cigclFgcn6QSToMk6gvJJuq9va94CL5tuTiLM11ipPP_OpwdntZ6sfrw8OENPxI-i9dbzjzGpm85KovSz_r0SFfNGdaQSbINpCXcyNTgaOAEpaMg4LAzfmcWWjAv9RpaJW8lU0k3ehHLWwIMuAMt92lVj0WeKjudNruZKboJVx8okNY2VpeH0vPt5Wlon-loXsGoIpOh5pbMj2gSnhs9SIVcoNXo',
-    },
-    {
-        id: 3,
-        title: 'Secret Mountain: Sunset Session',
-        date: 'Thursday, Oct 19',
-        location: 'Secret Mountain',
-        price: '฿500',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjxWNNiUGDnxga7JDvXCJbkluS_frS2_wtJ4c9OoVclCv7D9gr2R7k3DSAKGNe5Gry8d0tlU3bJ6TU5xt6vF5y-K95DIzQUiXJBeoLDCF5F-OEkhJyYn4G0XPV_6FeVGh-WouQfnrt0G8RB9O9ySS4RugIYSwkoTvoJ2r9FuB9ebui0YXDhBEpvJhBOL9IRxiTNqF3Y8juGFm4vLWByHTfmdR40Fk-7H4pgfWPJgXhLHq7Gx08lgBmaKsM73husdKYuuWZHwWNkPs',
-    },
-    {
-        id: 4,
-        title: 'OXA: Berlin Calling Edition',
-        date: 'Friday, Oct 27',
-        location: 'Koh Phangan',
-        price: '฿600',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDN--TujDsqT0bBN6gX3Oh8pDcceL2Vequ9NkKY1NkInA5mTYnH6PvqBcM6EE5HfK__juwiW0Mr6GJxygTklYI9TjOnXH8Su_Smc3nYAJRyafvA73Et-AiujfFxU_2syEiaAdpCulUw-z2qWEgSbxvNH2q2Zbdm1pLkcH-cK_WoXNtpwJtt3tP-fYO5CndUVc_k77zUnII_7axCVF1mb7tWMipFLfGcykssB23GwySjacI1vhkjWt12Xf0pe6mqlKbHy1YsD_qwXds',
-        isGold: true,
-    },
-    {
-        id: 5,
-        title: 'Half Moon Festival',
-        date: 'Saturday, Oct 28',
-        location: 'Ban Tai',
-        price: '฿2,500',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsXd-joHxtYFIMuzIDtP2akpOxKhhafT7ks_E1OkdQuoOMez9WuDuQLAKluHHofecan491ET2HaqcFILpA1K9wU47mCFWFNsyIgt0jUQKlkB-56uVYZpGTly-nU1XCOcrVAYSGl5eJ0dRM9iHEAsT0u4yaEnVXxcTS4sm2wlycAqACB8kL9qXrYba4Dadx-ENLdceDi7JsLk6c8QPF_Nn-xkAEs1fza7A_Qa8pstHh0TQVLC7cQJhiLDNuCfzualrhi6chkTdjP78',
-    },
-];
+const FALLBACK_IMAGE =
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAcyiHagYeLytG3El1EJoKbpWfYLLNDYCqEG6EEq25mxlx3uCLrkNsuVCjuD42WqtgYSSGsV3U1UQ6BIOEYAfXminjaBo4fHL8t_FHqVSVPq15wEUZxXSD87TTBI_ePTwVj2Uz2OYZjM9hSGBHq8CrQwO8CIcwCx1eRuVQIBj1B2ANudbDIZJqvsK-AiKSfkoGUdhEklkA0mIw3Ug0PRNYWbxl5RC6ztwJCyR2z2v_DWTxZ_S6dEf8sqNc0bTo7RWa-DdstAHV8OuM';
+
+function formatDate(dateStr: string): string {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+}
 
 export default function EventsPage() {
     const router = useRouter();
     const [active, setActive] = useState(0);
+    const { events, loading } = useEvents();
 
     return (
         <MobileLayout>
@@ -97,32 +62,48 @@ export default function EventsPage() {
                     ))}
                 </div>
 
-                <StaggerList className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-32">
-                    {events.map((event) => (
-                        <StaggerItem key={event.id}>
-                            <Link href="/event-detail" className="block group">
-                                <GlassCard className="p-3 rounded-xl flex lg:flex-col gap-4 lg:gap-0 items-center lg:items-stretch group-hover:bg-white/5 transition-colors">
-                                    <div className="w-20 h-20 lg:w-full lg:h-48 rounded-lg overflow-hidden flex-shrink-0">
-                                        <img className="w-full h-full object-cover" src={event.image} alt={event.title} />
-                                    </div>
-                                    <div className="flex-grow lg:p-3">
-                                        <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 block ${event.isGold ? 'text-gold' : 'text-primary'}`}>
-                                            {event.date}
-                                        </span>
-                                        <h4 className="font-bold text-base leading-tight">{event.title}</h4>
-                                        <p className="text-white/50 text-[11px] mt-1 flex items-center gap-1">
-                                            <span className="material-icons text-xs">location_on</span> {event.location}
-                                        </p>
-                                    </div>
-                                    <div className="text-right lg:px-3 lg:pb-3 lg:flex lg:justify-between lg:items-center">
-                                        <div className="text-xs text-white/40">From</div>
-                                        <div className="font-bold text-primary">{event.price}</div>
+                {loading ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-32">
+                        {[1, 2, 3, 4].map((i) => (
+                            <div key={i} className="animate-pulse">
+                                <GlassCard className="p-3 rounded-xl flex lg:flex-col gap-4 lg:gap-0 items-center lg:items-stretch">
+                                    <div className="w-20 h-20 lg:w-full lg:h-48 rounded-lg bg-white/5 flex-shrink-0" />
+                                    <div className="flex-grow space-y-2 lg:p-3">
+                                        <div className="h-3 bg-white/5 rounded w-1/3" />
+                                        <div className="h-5 bg-white/5 rounded w-3/4" />
+                                        <div className="h-3 bg-white/5 rounded w-1/2" />
                                     </div>
                                 </GlassCard>
-                            </Link>
-                        </StaggerItem>
-                    ))}
-                </StaggerList>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <StaggerList className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-32">
+                        {events.map((event) => (
+                            <StaggerItem key={event.id}>
+                                <Link href={`/event-detail?slug=${event.slug}`} className="block group">
+                                    <GlassCard className="p-3 rounded-xl flex lg:flex-col gap-4 lg:gap-0 items-center lg:items-stretch group-hover:bg-white/5 transition-colors">
+                                        <div className="w-20 h-20 lg:w-full lg:h-48 rounded-lg overflow-hidden flex-shrink-0">
+                                            <img className="w-full h-full object-cover" src={event.image_url || FALLBACK_IMAGE} alt={event.title} />
+                                        </div>
+                                        <div className="flex-grow lg:p-3">
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 block ${event.title.toLowerCase().includes('oxa') ? 'text-gold' : 'text-primary'}`}>
+                                                {formatDate(event.date)}
+                                            </span>
+                                            <h4 className="font-bold text-base leading-tight">{event.title}</h4>
+                                            <p className="text-white/50 text-[11px] mt-1 flex items-center gap-1">
+                                                <span className="material-icons text-xs">location_on</span> {event.location}
+                                            </p>
+                                        </div>
+                                        <div className="text-right lg:px-3 lg:pb-3 lg:flex lg:justify-between lg:items-center">
+                                            <div className="text-xs text-white/40">{event.venue}</div>
+                                        </div>
+                                    </GlassCard>
+                                </Link>
+                            </StaggerItem>
+                        ))}
+                    </StaggerList>
+                )}
             </PageTransition>
         </MobileLayout>
     );
