@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { AuthGuard } from '@/components/guards/AuthGuard';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { BottomNav } from '../../components/navigation/BottomNav';
 import { PageTransition } from '../../components/motion/PageTransition';
@@ -13,6 +14,7 @@ import { AnimatedProgress } from '../../components/motion/AnimatedProgress';
 import { haptics } from '../../lib/haptics';
 import { useProfile } from '@/lib/hooks/use-profile';
 import { useAuthContext } from '@/components/providers/AuthProvider';
+import { supabase } from '@/lib/supabase';
 
 const tierConfig: Record<string, { label: string; color: string }> = {
     bronze: { label: 'Bronze', color: 'text-amber-600' },
@@ -23,10 +25,32 @@ const tierConfig: Record<string, { label: string; color: string }> = {
 
 export default function ProfilePage() {
     const router = useRouter();
-    const { profile, loading } = useProfile();
-    const { signOut } = useAuthContext();
+    const { profile, loading, updateProfile } = useProfile();
+    const { user, signOut } = useAuthContext();
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const tier = tierConfig[profile?.tier ?? 'bronze'] ?? tierConfig.bronze;
+
+    const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file || !user) return;
+
+        const { error: uploadError } = await supabase.storage
+            .from('avatars')
+            .upload(`${user.id}/avatar.jpg`, file, { upsert: true });
+
+        if (uploadError) {
+            toast.error('Upload failed');
+            return;
+        }
+
+        const { data: { publicUrl } } = supabase.storage
+            .from('avatars')
+            .getPublicUrl(`${user.id}/avatar.jpg`);
+
+        await updateProfile({ avatar_url: publicUrl });
+        toast.success('Avatar updated!');
+    };
 
     const handleLogout = async () => {
         haptics.impact('light');
@@ -68,15 +92,32 @@ export default function ProfilePage() {
                 <header className="pt-6 pb-6 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <div className="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-primary to-gold">
-                                <img
-                                    alt="User Profile"
-                                    className="w-full h-full rounded-full object-cover border-2 border-background-dark"
-                                    src={profile?.avatar_url ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6cXBN2W08Wkj2lzjwyh7osbQL-VdV_v4be1LwYJcN3CsU0eBnUVKCFDj0Qbcum5g2BvR9FacRgpfy1MX6-9E56l1EA7V2Lqi4UixdCf5b08gPPMN45j3RF3voP-5LpnoVTe8FxjxLgOjh1JWOwmGgIlreCkCjhZyK-iw2qeutDJtCzO9XoDEOwLDTtZmAkK9MtvrwENneB9HwUqW5hYdHRSJ6Esi7Qox-rFZ-2im5TJLjRPSR5PFRNB_umi5XTF94pg0dalDYZ8'}
-                                />
-                            </div>
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={handleAvatarUpload}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => { fileInputRef.current?.click(); haptics.impact('light'); }}
+                                className="relative group cursor-pointer"
+                                aria-label="Change avatar"
+                            >
+                                <div className="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-primary to-gold">
+                                    <img
+                                        alt="User Profile"
+                                        className="w-full h-full rounded-full object-cover border-2 border-background-dark"
+                                        src={profile?.avatar_url ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6cXBN2W08Wkj2lzjwyh7osbQL-VdV_v4be1LwYJcN3CsU0eBnUVKCFDj0Qbcum5g2BvR9FacRgpfy1MX6-9E56l1EA7V2Lqi4UixdCf5b08gPPMN45j3RF3voP-5LpnoVTe8FxjxLgOjh1JWOwmGgIlreCkCjhZyK-iw2qeutDJtCzO9XoDEOwLDTtZmAkK9MtvrwENneB9HwUqW5hYdHRSJ6Esi7Qox-rFZ-2im5TJLjRPSR5PFRNB_umi5XTF94pg0dalDYZ8'}
+                                    />
+                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span className="material-icons text-white text-lg">photo_camera</span>
+                                </div>
+                            </button>
                             {(profile?.tier === 'vip' || profile?.tier === 'gold') && (
-                                <div className="absolute -bottom-1 -right-1 bg-gold text-background-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                <div className="absolute -bottom-1 -right-1 bg-gold text-background-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider pointer-events-none">
                                     {tier.label}
                                 </div>
                             )}
