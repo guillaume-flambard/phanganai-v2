@@ -7,6 +7,7 @@ import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { slideUpVariants } from '../../lib/animations';
 import { haptics } from '../../lib/haptics';
+import { supabase } from '@/lib/supabase';
 
 const quickAmounts = ['฿250', '฿450', '฿800'];
 
@@ -20,7 +21,19 @@ export default function ScanToPayPage() {
         setIsProcessing(true);
         haptics.impact('medium');
         const toastId = toast.loading('Processing payment...');
-        await new Promise((r) => setTimeout(r, 1500));
+
+        const amount = parseInt(selectedAmount.replace('฿', '')) * 100;
+        const { data, error } = await supabase.functions.invoke('scan-to-pay', {
+            body: { amount, description: 'OXA Bar' },
+        });
+
+        if (error || !data?.success) {
+            toast.error(error?.message || data?.error || 'Payment failed', { id: toastId });
+            haptics.notification('error');
+            setIsProcessing(false);
+            return;
+        }
+
         toast.success(`${selectedAmount} sent to OXA Bar`, { id: toastId });
         haptics.notification('success');
         router.push('/payment-success');

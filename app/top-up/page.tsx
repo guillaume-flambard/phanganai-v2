@@ -8,6 +8,7 @@ import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { slideRightVariants } from '../../lib/animations';
 import { haptics } from '../../lib/haptics';
+import { supabase } from '@/lib/supabase';
 
 const quickAmounts = [
     { label: '฿500', value: 500 },
@@ -25,10 +26,34 @@ export default function TopUpPage() {
         if (isProcessing) return;
         setIsProcessing(true);
         haptics.impact('medium');
-        const amount = customAmount || `฿${selectedQuick?.toLocaleString()}`;
+        const amountValue = customAmount ? parseInt(customAmount) : selectedQuick;
+        if (!amountValue || amountValue <= 0) {
+            toast.error('Please enter a valid amount');
+            setIsProcessing(false);
+            return;
+        }
+        const displayAmount = customAmount || `฿${selectedQuick?.toLocaleString()}`;
         const toastId = toast.loading('Processing top-up...');
-        await new Promise((r) => setTimeout(r, 1500));
-        toast.success(`${amount} added to wallet`, { id: toastId });
+
+        const amountInSatang = amountValue * 100;
+        const { data, error } = await supabase.functions.invoke('topup-wallet', {
+            body: { amount: amountInSatang, token: 'tok_test' },
+        });
+
+        if (error || (!data?.success && !data?.requires_3ds)) {
+            toast.error(error?.message || data?.error || 'Top-up failed', { id: toastId });
+            haptics.notification('error');
+            setIsProcessing(false);
+            return;
+        }
+
+        if (data?.requires_3ds && data?.authorize_uri) {
+            toast.loading('Redirecting for 3DS verification...', { id: toastId });
+            window.location.href = data.authorize_uri;
+            return;
+        }
+
+        toast.success(`${displayAmount} added to wallet`, { id: toastId });
         haptics.notification('success');
         router.push('/payment-success');
     };
@@ -37,7 +62,7 @@ export default function TopUpPage() {
         <MobileLayout>
             <PageTransition variant={slideRightVariants}>
                 {/* Header */}
-                <header className="flex items-center justify-between px-6 py-4">
+                <header className="flex items-center justify-between px-6 py-4 lg:px-0">
                     <button
                         onClick={() => router.back()}
                         className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-dark border border-primary/10"
@@ -49,7 +74,7 @@ export default function TopUpPage() {
                     <div className="w-10" />
                 </header>
 
-                <main className="flex-1 px-6 pt-6 flex flex-col gap-8">
+                <main className="flex-1 px-6 pt-6 flex flex-col gap-8 lg:max-w-xl lg:mx-auto lg:px-0">
                     {/* Quick Select */}
                     <section className="flex flex-col gap-4">
                         <h2 className="text-xs font-bold uppercase tracking-widest text-primary/60 px-1">Quick Select</h2>
@@ -115,7 +140,7 @@ export default function TopUpPage() {
                 </main>
 
                 {/* Footer */}
-                <footer className="p-6 pb-12 flex flex-col gap-4">
+                <footer className="p-6 pb-12 flex flex-col gap-4 lg:max-w-xl lg:mx-auto lg:px-0 lg:pb-8">
                     <button
                         onClick={handleTopUp}
                         disabled={isProcessing}

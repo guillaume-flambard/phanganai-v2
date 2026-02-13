@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MobileLayout } from '../../components/layout/MobileLayout';
 import { CheckoutHeader } from '../../components/features/checkout/CheckoutHeader';
 import { OrderSummary } from '../../components/features/checkout/OrderSummary';
@@ -33,7 +33,9 @@ export default function CheckoutPage() {
                 </div>
             </PageTransition>
 
-            <PaymentButton />
+            <Suspense fallback={null}>
+                <PaymentButton />
+            </Suspense>
         </MobileLayout>
     );
 }

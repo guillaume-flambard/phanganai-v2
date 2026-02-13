@@ -1,12 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { haptics } from '@/lib/haptics';
+import { supabase } from '@/lib/supabase';
 
-export function PaymentButton() {
+interface PaymentButtonProps {
+    eventId?: string;
+    tierId?: string;
+    payWithWallet?: boolean;
+}
+
+export function PaymentButton({ eventId, tierId, payWithWallet = true }: PaymentButtonProps) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handleConfirm = async () => {
@@ -14,7 +22,31 @@ export function PaymentButton() {
         setIsProcessing(true);
         haptics.impact('medium');
         const toastId = toast.loading('Processing payment...');
-        await new Promise((r) => setTimeout(r, 1500));
+
+        const resolvedEventId = eventId || searchParams.get('event_id');
+        const resolvedTierId = tierId || searchParams.get('tier_id');
+
+        if (!resolvedEventId || !resolvedTierId) {
+            toast.error('Missing event or ticket tier information', { id: toastId });
+            setIsProcessing(false);
+            return;
+        }
+
+        const { data, error } = await supabase.functions.invoke('purchase-ticket', {
+            body: {
+                event_id: resolvedEventId,
+                tier_id: resolvedTierId,
+                pay_with_wallet: payWithWallet,
+            },
+        });
+
+        if (error || !data?.success) {
+            toast.error(error?.message || data?.error || 'Payment failed', { id: toastId });
+            haptics.notification('error');
+            setIsProcessing(false);
+            return;
+        }
+
         toast.success('Payment confirmed!', { id: toastId });
         haptics.notification('success');
         router.push('/payment-success');
