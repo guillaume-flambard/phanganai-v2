@@ -58,17 +58,17 @@ function EventDetailContent() {
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8">
                     {/* Left: Hero + About */}
                     <div className="lg:col-span-7">
-                        <EventHero />
+                        <EventHero event={event} />
                         <div className="px-6 pt-4 pb-8 space-y-8 lg:px-0">
                             <EventLineup artists={artists} />
-                            <FadeIn><EventAbout /></FadeIn>
+                            <FadeIn><EventAbout event={event} /></FadeIn>
                             <FadeIn><EventMap /></FadeIn>
                         </div>
                     </div>
                     {/* Right: Meta + Pricing (sticky on desktop) */}
                     <div className="lg:col-span-5 px-6 lg:px-0 lg:pt-8">
                         <div className="lg:sticky lg:top-8 space-y-8">
-                            <EventMeta />
+                            <EventMeta event={event} />
                             <FadeIn><EventPricing tiers={tiers} /></FadeIn>
                             <div className="hidden lg:block">
                                 <EventFooter />

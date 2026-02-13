@@ -125,17 +125,12 @@ export default function TopUpPage() {
                             <Link href="/payment-methods" className="text-xs font-bold text-primary uppercase tracking-tighter">Change</Link>
                         </div>
                         <div className="p-5 rounded-xl bg-surface-dark border border-primary/20 flex items-center gap-4">
-                            <div className="w-12 h-8 rounded-md bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center text-[10px] text-white font-bold italic tracking-tighter relative overflow-hidden">
-                                <div className="absolute inset-0 bg-white/10 opacity-50 skew-x-12 translate-x-4" />
-                                VISA
+                            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                                <span className="material-icons text-white/60 text-2xl">credit_card</span>
                             </div>
                             <div className="flex-1">
-                                <p className="text-sm font-bold">Visa **** 4488</p>
-                                <p className="text-[10px] uppercase font-bold text-primary/40 tracking-widest">Exp 12/26</p>
-                            </div>
-                            <div className="flex items-center gap-1 opacity-60">
-                                <span className="text-[9px] font-bold text-white/40">Powered by</span>
-                                <span className="text-[11px] font-black tracking-tighter text-blue-500 italic">omise</span>
+                                <p className="text-sm font-bold">Credit Card</p>
+                                <p className="text-[10px] uppercase font-bold text-primary/40 tracking-widest">Secure checkout via Omise</p>
                             </div>
                         </div>
                     </section>

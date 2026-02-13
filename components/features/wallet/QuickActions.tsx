@@ -47,12 +47,12 @@ export function QuickActions() {
                             <span className="material-icons text-blue-400">credit_card</span>
                         </div>
                         <div>
-                            <p className="text-sm font-semibold">Omise / Credit Card</p>
-                            <p className="text-xs text-white/40">Visa &bull;&bull;&bull;&bull; 4242</p>
+                            <p className="text-sm font-semibold">Credit Card</p>
+                            <p className="text-xs text-white/40">Secure via Omise</p>
                         </div>
                     </div>
                     <Link href="/payment-methods" className="text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 bg-primary/10 rounded-full active:scale-95 transition-transform">
-                        Edit
+                        Manage
                     </Link>
                 </div>
             </section>

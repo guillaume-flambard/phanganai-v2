@@ -18,10 +18,7 @@ type Card = {
     isPrimary: boolean;
 };
 
-const initialCards: Card[] = [
-    { id: '1', brand: 'Visa', last4: '4488', expiry: '12/26', isPrimary: true },
-    { id: '2', brand: 'Mastercard', last4: '1122', expiry: '08/25', isPrimary: false },
-];
+const initialCards: Card[] = [];
 
 export default function PaymentMethodsPage() {
     const router = useRouter();

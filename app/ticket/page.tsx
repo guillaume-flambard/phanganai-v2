@@ -124,12 +124,11 @@ export default function TicketPage() {
                     {/* QR Code */}
                     <div className="relative group">
                         <div className="absolute -inset-1.5 bg-primary/30 rounded-[2.5rem] blur-sm group-hover:bg-primary/50 transition-all duration-500" />
-                        <div className={`relative bg-white p-8 rounded-xl shadow-2xl flex items-center justify-center aspect-square w-full max-w-[280px] transition-all ${maxBrightness ? 'brightness-125 shadow-[0_0_40px_rgba(255,255,255,0.3)]' : ''}`}>
-                            <img
-                                alt="Entry QR Code"
-                                className="w-full h-full object-contain mix-blend-multiply"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnv5Wxv-eu8pcER6mgPeTN0RH5gFu6dHIoPKtSJmFOPnYemfifjy15grqPgUsa5Xqd_33eMQ-YhTmHezBZAU9P6l-jxwINHEY-_OuxkbE6q5b-WQRiUnIhNUEovIfhPEtuMfAdsucXQIwYHXbA7oTZgeZ--JNd6WYKdKG_vytWgL1deXIOgPLL_FTjx9sxwttKklLOBfw8dT4NQgcx0K2r-UtltEUPQMz56HqdrhKDcFm8Ittpli582rirJjwjVfzkU1vfAon23Ic"
-                            />
+                        <div className={`relative bg-white p-8 rounded-xl shadow-2xl flex flex-col items-center justify-center aspect-square w-full max-w-[280px] transition-all ${maxBrightness ? 'brightness-125 shadow-[0_0_40px_rgba(255,255,255,0.3)]' : ''}`}>
+                            <div className="text-black font-mono text-sm font-bold tracking-widest mb-4 text-center break-all">{ticket.qr_code}</div>
+                            <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <span className="material-icons text-gray-400 text-6xl">qr_code_2</span>
+                            </div>
                             <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-primary/20" />
                             <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-primary/20" />
                             <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-primary/20" />
@@ -152,12 +151,12 @@ export default function TicketPage() {
                         <div className="h-px bg-white/10 w-full" />
                         <div className="flex justify-between items-center">
                             <div>
-                                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Entrance</p>
-                                <p className="font-medium">Main Jungle Gate</p>
+                                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Venue</p>
+                                <p className="font-medium">{ticket.event.venue}</p>
                             </div>
                             <div className="text-right">
-                                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">ID Required</p>
-                                <p className="font-medium text-amber-400">Yes</p>
+                                <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Location</p>
+                                <p className="font-medium">{ticket.event.location}</p>
                             </div>
                         </div>
                     </div>

@@ -40,11 +40,7 @@ export function WalletBalanceCard() {
                     <div className="flex gap-2">
                         <div className="flex items-center gap-1.5 bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20">
                             <span className="material-icons text-base text-primary">confirmation_number</span>
-                            <span className="text-[10px] font-bold text-primary uppercase">2 Tickets</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 bg-[#ffd700]/10 px-2.5 py-1 rounded-full border border-[#ffd700]/20">
-                            <span className="material-icons text-base text-[#ffd700]">star</span>
-                            <span className="text-[10px] font-bold text-[#ffd700] uppercase">Gold</span>
+                            <span className="text-[10px] font-bold text-primary uppercase">Tickets</span>
                         </div>
                     </div>
                     <Link href="/top-up" className="bg-[#ffd700] text-background-dark px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-[#ffd700]/20">

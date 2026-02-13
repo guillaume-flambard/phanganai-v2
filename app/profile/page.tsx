@@ -112,7 +112,7 @@ export default function ProfilePage() {
                                     <img
                                         alt="User Profile"
                                         className="w-full h-full rounded-full object-cover border-2 border-background-dark"
-                                        src={profile?.avatar_url ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ6cXBN2W08Wkj2lzjwyh7osbQL-VdV_v4be1LwYJcN3CsU0eBnUVKCFDj0Qbcum5g2BvR9FacRgpfy1MX6-9E56l1EA7V2Lqi4UixdCf5b08gPPMN45j3RF3voP-5LpnoVTe8FxjxLgOjh1JWOwmGgIlreCkCjhZyK-iw2qeutDJtCzO9XoDEOwLDTtZmAkK9MtvrwENneB9HwUqW5hYdHRSJ6Esi7Qox-rFZ-2im5TJLjRPSR5PFRNB_umi5XTF94pg0dalDYZ8'}
+                                        src={profile?.avatar_url || ''}
                                     />
                                 </div>
                                 <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -128,7 +128,7 @@ export default function ProfilePage() {
                         <div>
                             <h1 className="text-xl font-bold tracking-tight">{profile?.display_name ?? 'User'}</h1>
                             <p className="text-primary text-sm font-medium flex items-center gap-1">
-                                Full Moon Resident
+                                {tier.label}
                                 <span className="material-icons text-gold text-sm">verified</span>
                             </p>
                         </div>
@@ -155,16 +155,29 @@ export default function ProfilePage() {
                             </div>
                         </div>
                         <div className="space-y-3">
-                            <div className="flex justify-between text-sm">
-                                <span className="text-white/70">Next: <span className="text-white font-medium">Free Drink</span></span>
-                                <span className="text-primary font-bold">75%</span>
-                            </div>
-                            <AnimatedProgress
-                                progress={75}
-                                className="h-3 bg-white/10 rounded-full overflow-hidden"
-                                barClassName="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(19,236,91,0.4)]"
-                            />
-                            <p className="text-[11px] text-white/40 text-center pt-2 italic">Spend 550 more points for a VIP Upgrade</p>
+                            {(() => {
+                                const points = profile?.loyalty_points ?? 0;
+                                const nextTierThreshold = profile?.tier === 'bronze' ? 100 : profile?.tier === 'silver' ? 500 : profile?.tier === 'gold' ? 2000 : 5000;
+                                const progress = Math.min(100, Math.round((points / nextTierThreshold) * 100));
+                                const remaining = Math.max(0, nextTierThreshold - points);
+                                const nextLabel = profile?.tier === 'bronze' ? 'Silver' : profile?.tier === 'silver' ? 'Gold' : profile?.tier === 'gold' ? 'VIP' : 'Max';
+                                return (
+                                    <>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-white/70">Next: <span className="text-white font-medium">{nextLabel}</span></span>
+                                            <span className="text-primary font-bold">{progress}%</span>
+                                        </div>
+                                        <AnimatedProgress
+                                            progress={progress}
+                                            className="h-3 bg-white/10 rounded-full overflow-hidden"
+                                            barClassName="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(19,236,91,0.4)]"
+                                        />
+                                        <p className="text-[11px] text-white/40 text-center pt-2 italic">
+                                            {remaining > 0 ? `${remaining} more points for ${nextLabel}` : 'You reached the top tier!'}
+                                        </p>
+                                    </>
+                                );
+                            })()}
                         </div>
                     </section>
 

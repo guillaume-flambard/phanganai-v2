@@ -12,10 +12,12 @@ import { AnimatedCounter } from '../../components/motion/AnimatedCounter';
 import { share } from '../../lib/share';
 import { haptics } from '../../lib/haptics';
 import { useProfile } from '@/lib/hooks/use-profile';
+import { useReferralStats } from '@/lib/hooks/use-referral-stats';
 
 export default function ReferralPage() {
     const router = useRouter();
     const { profile } = useProfile();
+    const { totalRewards, friendsCount } = useReferralStats();
     const referralCode = profile?.referral_code ?? '------';
 
     const copyCode = () => {
@@ -113,7 +115,7 @@ export default function ReferralPage() {
                                         <div>
                                             <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Total Rewards Earned</p>
                                             <div className="flex items-baseline gap-1">
-                                                <AnimatedCounter target={1250} prefix="฿" className="text-3xl font-bold text-primary italic" />
+                                                <AnimatedCounter target={totalRewards} prefix="฿" className="text-3xl font-bold text-primary italic" />
                                                 <span className="text-xs text-white/30">.00</span>
                                             </div>
                                         </div>
@@ -121,7 +123,7 @@ export default function ReferralPage() {
                                             <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1">Friends Joined</p>
                                             <div className="flex items-center justify-end gap-1">
                                                 <span className="material-icons text-primary text-base">group</span>
-                                                <span className="text-xl font-bold">25</span>
+                                                <span className="text-xl font-bold">{friendsCount}</span>
                                             </div>
                                         </div>
                                     </div>

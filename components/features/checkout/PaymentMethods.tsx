@@ -1,6 +1,12 @@
+'use client';
+
 import React from 'react';
+import { useWallet } from '@/lib/hooks/use-wallet';
 
 export function PaymentMethods() {
+    const { wallet } = useWallet();
+    const balance = wallet ? (wallet.balance / 100).toLocaleString() : '0';
+
     return (
         <div className="space-y-4">
             <h3 className="text-xs uppercase tracking-widest text-white/50 font-bold">Select Payment</h3>
@@ -17,7 +23,7 @@ export function PaymentMethods() {
                             <span className="font-bold">PhanganAI Wallet</span>
                             <span className="material-icons text-primary">check_circle</span>
                         </div>
-                        <span className="text-xs text-primary/80">Balance: &#3647;1,250</span>
+                        <span className="text-xs text-primary/80">Balance: &#3647;{balance}</span>
                     </div>
                 </label>
             </div>

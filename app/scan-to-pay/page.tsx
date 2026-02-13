@@ -9,11 +9,14 @@ import { PageTransition } from '../../components/motion/PageTransition';
 import { slideUpVariants } from '../../lib/animations';
 import { haptics } from '../../lib/haptics';
 import { supabase } from '@/lib/supabase';
+import { useWallet } from '@/lib/hooks/use-wallet';
 
 const quickAmounts = ['฿250', '฿450', '฿800'];
 
 export default function ScanToPayPage() {
     const router = useRouter();
+    const { wallet } = useWallet();
+    const balance = wallet ? (wallet.balance / 100).toLocaleString() : '0';
     const [selectedAmount, setSelectedAmount] = useState('฿450');
     const [isProcessing, setIsProcessing] = useState(false);
 
@@ -106,7 +109,7 @@ export default function ScanToPayPage() {
                                 <p className="text-[10px] text-white/40 uppercase font-bold mb-1">Wallet Balance</p>
                                 <div className="flex items-center justify-end gap-1.5">
                                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                                    <span className="text-primary font-bold">฿1,250</span>
+                                    <span className="text-primary font-bold">฿{balance}</span>
                                 </div>
                             </div>
                         </div>
