@@ -9,6 +9,7 @@ import { slideRightVariants } from '../../lib/animations';
 import { share } from '../../lib/share';
 import { haptics } from '../../lib/haptics';
 import { useTickets } from '@/lib/hooks/use-tickets';
+import { QRCode } from '@/components/ui/QRCode';
 
 export default function VenueTicketPage() {
     const { tickets, loading } = useTickets();
@@ -125,10 +126,11 @@ export default function VenueTicketPage() {
                             {/* QR Code */}
                             <div className="flex-1 flex items-center justify-center w-full">
                                 <div className="bg-white p-4 rounded-lg">
-                                    <img
-                                        alt="QR Code for event entry"
+                                    <QRCode
+                                        value={ticket.qr_code}
+                                        size={256}
                                         className="w-64 h-64"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwjsyGL0ALN7GbiIjrzCZtZUzJUhDOPhB6L7Soc2vKOTTRb710CVeUGPy52HG8_EpFMVyHL1uHZ94ZTYjttyYtU5Xf360DwFDB7Cweh_mM5cs3KQuWyHypme2hCkYhNxBKayQc1INntfgqr9dfmjZsGGug4-5Is-ao-MdRQHv5FGy-ga8a-avxglSS7xqcZshj2eGkATiUpSXRfdaDuKv1b0DpMGAxrUMNUUnVr6B0J-mVwbhYRDs9XymZxcxJEdGjtvvtgHx4Nlk"
+                                        alt="QR Code for event entry"
                                     />
                                 </div>
                             </div>

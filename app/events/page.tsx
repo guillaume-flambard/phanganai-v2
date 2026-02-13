@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { MobileLayout } from '../../components/layout/MobileLayout';
@@ -11,6 +11,13 @@ import { GlassCard } from '../../components/ui/GlassCard';
 import { useEvents } from '@/lib/hooks/use-events';
 
 const filters = ['All Events', 'Techno', 'House', 'Trance', 'Beach'];
+
+const filterKeywords: Record<string, string[]> = {
+    'Techno': ['techno'],
+    'House': ['house'],
+    'Trance': ['trance', 'psy', 'psytrance', 'goa'],
+    'Beach': ['beach', 'sunset', 'bay'],
+};
 
 const FALLBACK_IMAGE =
     'https://lh3.googleusercontent.com/aida-public/AB6AXuAcyiHagYeLytG3El1EJoKbpWfYLLNDYCqEG6EEq25mxlx3uCLrkNsuVCjuD42WqtgYSSGsV3U1UQ6BIOEYAfXminjaBo4fHL8t_FHqVSVPq15wEUZxXSD87TTBI_ePTwVj2Uz2OYZjM9hSGBHq8CrQwO8CIcwCx1eRuVQIBj1B2ANudbDIZJqvsK-AiKSfkoGUdhEklkA0mIw3Ug0PRNYWbxl5RC6ztwJCyR2z2v_DWTxZ_S6dEf8sqNc0bTo7RWa-DdstAHV8OuM';
@@ -23,7 +30,32 @@ function formatDate(dateStr: string): string {
 export default function EventsPage() {
     const router = useRouter();
     const [active, setActive] = useState(0);
+    const [searchQuery, setSearchQuery] = useState('');
     const { events, loading } = useEvents();
+
+    const filteredEvents = useMemo(() => {
+        let result = events;
+
+        // Filter by category
+        const activeFilter = filters[active];
+        if (activeFilter !== 'All Events') {
+            const keywords = filterKeywords[activeFilter] ?? [];
+            result = result.filter((event) => {
+                const haystack = `${event.title} ${event.description} ${event.venue}`.toLowerCase();
+                return keywords.some((keyword) => haystack.includes(keyword));
+            });
+        }
+
+        // Filter by search query
+        const query = searchQuery.trim().toLowerCase();
+        if (query) {
+            result = result.filter((event) => {
+                return event.title.toLowerCase().includes(query);
+            });
+        }
+
+        return result;
+    }, [events, active, searchQuery]);
 
     return (
         <MobileLayout>
@@ -41,6 +73,8 @@ export default function EventsPage() {
                         <input
                             type="text"
                             placeholder="Search events..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full bg-white/5 border border-white/10 rounded-full py-2.5 pl-10 pr-4 text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/40"
                         />
                     </div>
@@ -79,7 +113,7 @@ export default function EventsPage() {
                     </div>
                 ) : (
                     <StaggerList className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-32">
-                        {events.map((event) => (
+                        {filteredEvents.map((event) => (
                             <StaggerItem key={event.id}>
                                 <Link href={`/event-detail?slug=${event.slug}`} className="block group">
                                     <GlassCard className="p-3 rounded-xl flex lg:flex-col gap-4 lg:gap-0 items-center lg:items-stretch group-hover:bg-white/5 transition-colors">

@@ -10,6 +10,7 @@ import { share } from '../../lib/share';
 import { haptics } from '../../lib/haptics';
 import { useTickets } from '@/lib/hooks/use-tickets';
 import { useProfile } from '@/lib/hooks/use-profile';
+import { QRCode } from '@/components/ui/QRCode';
 
 export default function TicketPage() {
     const [maxBrightness, setMaxBrightness] = useState(false);
@@ -124,11 +125,14 @@ export default function TicketPage() {
                     {/* QR Code */}
                     <div className="relative group">
                         <div className="absolute -inset-1.5 bg-primary/30 rounded-[2.5rem] blur-sm group-hover:bg-primary/50 transition-all duration-500" />
-                        <div className={`relative bg-white p-8 rounded-xl shadow-2xl flex flex-col items-center justify-center aspect-square w-full max-w-[280px] transition-all ${maxBrightness ? 'brightness-125 shadow-[0_0_40px_rgba(255,255,255,0.3)]' : ''}`}>
-                            <div className="text-black font-mono text-sm font-bold tracking-widest mb-4 text-center break-all">{ticket.qr_code}</div>
-                            <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                                <span className="material-icons text-gray-400 text-6xl">qr_code_2</span>
-                            </div>
+                        <div className={`relative bg-white p-6 rounded-xl shadow-2xl flex flex-col items-center justify-center w-full max-w-[280px] transition-all ${maxBrightness ? 'brightness-125 shadow-[0_0_40px_rgba(255,255,255,0.3)]' : ''}`}>
+                            <QRCode
+                                value={ticket.qr_code}
+                                size={224}
+                                className="w-56 h-56"
+                                alt={`QR Code for ticket ${ticket.qr_code}`}
+                            />
+                            <div className="text-black font-mono text-[10px] font-bold tracking-widest mt-3 text-center break-all opacity-60">{ticket.qr_code}</div>
                             <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-primary/20" />
                             <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-primary/20" />
                             <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-primary/20" />
