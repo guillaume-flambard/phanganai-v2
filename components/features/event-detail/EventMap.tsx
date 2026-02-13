@@ -2,20 +2,23 @@
 
 import React from 'react';
 import { FadeIn } from '../../motion/FadeIn';
+import type { Event } from '@/lib/types/database';
 
-export function EventMap() {
+export function EventMap({ event }: { event?: Event }) {
+    const venue = event?.venue || 'Koh Phangan';
+    const location = event?.location || 'Thailand';
+
     return (
         <FadeIn delay={0.1}>
         <section className="mt-4">
-            <div className="w-full h-32 rounded-lg overflow-hidden relative border border-white/10 bg-white/5">
-                <img
-                    className="w-full h-full object-cover opacity-60 grayscale"
-                    alt="Map location"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbJI2Mzfa4GYh1_4F8LJ1wgLvdpEG-RXsrHsTAvTq_XBV8_ZnBL_OO1SAnQAgef0OUhW7i9EPmBNtt3zeUyzhrOg5nROPzOlfHAgPAGM7UNbCyC3tjZkDOo08mD8rduaFtlTozFWBySpOjOdV49FamObC7wWtvzr1L-7zGKuGTl1eJ5WfxSm5DUiQRhK1EAARXhVNEcbtW433zA8OBwBCQhOYCh4RKWEaOSPps9jZNdmEBBdOzhMZWxxij_xhUVykPw_WEdobzUho"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center animate-pulse shadow-[0_0_15px_rgba(19,236,91,0.5)]">
-                        <span className="material-icons text-background-dark text-xl">location_on</span>
+            <div className="w-full rounded-lg overflow-hidden relative border border-white/10 bg-surface-dark p-5">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <span className="material-icons text-primary text-2xl">location_on</span>
+                    </div>
+                    <div>
+                        <p className="font-bold">{venue}</p>
+                        <p className="text-sm text-white/50">{location}</p>
                     </div>
                 </div>
             </div>

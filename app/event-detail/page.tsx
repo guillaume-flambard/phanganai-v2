@@ -62,7 +62,7 @@ function EventDetailContent() {
                         <div className="px-6 pt-4 pb-8 space-y-8 lg:px-0">
                             <EventLineup artists={artists} />
                             <FadeIn><EventAbout event={event} /></FadeIn>
-                            <FadeIn><EventMap /></FadeIn>
+                            <FadeIn><EventMap event={event} /></FadeIn>
                         </div>
                     </div>
                     {/* Right: Meta + Pricing (sticky on desktop) */}
@@ -71,7 +71,7 @@ function EventDetailContent() {
                             <EventMeta event={event} />
                             <FadeIn><EventPricing tiers={tiers} /></FadeIn>
                             <div className="hidden lg:block">
-                                <EventFooter />
+                                <EventFooter event={event} />
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function EventDetailContent() {
             </PageTransition>
 
             <div className="lg:hidden">
-                <EventFooter />
+                <EventFooter event={event} />
             </div>
         </MobileLayout>
     );
