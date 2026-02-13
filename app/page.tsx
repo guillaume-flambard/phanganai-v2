@@ -12,10 +12,23 @@ export default function Home() {
     <MobileLayout>
       <PageTransition>
         <HomeHeader />
-        <WalletBalanceCard />
-        <QuickActions />
-        <FeaturedEvents />
-        <PeakEnergyNow />
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+          {/* Left column: wallet + actions */}
+          <div className="lg:col-span-4">
+            <WalletBalanceCard />
+            <QuickActions />
+            <div className="hidden lg:block">
+              <PeakEnergyNow />
+            </div>
+          </div>
+          {/* Right column: events feed */}
+          <div className="lg:col-span-8">
+            <FeaturedEvents />
+            <div className="lg:hidden">
+              <PeakEnergyNow />
+            </div>
+          </div>
+        </div>
       </PageTransition>
       <BottomNav />
     </MobileLayout>

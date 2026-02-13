@@ -1,7 +1,11 @@
+'use client';
+
 import React from 'react';
+import { FadeIn } from '../../motion/FadeIn';
 
 export function PeakEnergyNow() {
     return (
+        <FadeIn>
         <section className="mb-10">
             <h3 className="text-sm font-bold tracking-widest text-primary/80 uppercase mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -36,5 +40,6 @@ export function PeakEnergyNow() {
                 </div>
             </div>
         </section>
+        </FadeIn>
     );
 }

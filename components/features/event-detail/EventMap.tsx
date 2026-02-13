@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
-import { GlassCard } from '../../ui/GlassCard';
+import { FadeIn } from '../../motion/FadeIn';
 
 export function EventMap() {
     return (
+        <FadeIn delay={0.1}>
         <section className="mt-4">
             <div className="w-full h-32 rounded-lg overflow-hidden relative border border-white/10 bg-white/5">
                 <img
@@ -17,5 +20,6 @@ export function EventMap() {
                 </div>
             </div>
         </section>
+        </FadeIn>
     );
 }

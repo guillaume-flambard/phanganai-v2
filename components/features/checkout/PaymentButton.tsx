@@ -21,8 +21,8 @@ export function PaymentButton() {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent z-20">
-            <div className="max-w-md mx-auto">
+        <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent z-20 lg:static lg:bg-transparent lg:p-0 lg:mt-4">
+            <div className="max-w-md mx-auto lg:max-w-none">
                 <button
                     className="w-full h-16 bg-primary text-background-dark font-black text-lg rounded-full flex items-center justify-center gap-2 neon-glow shadow-[0_8px_20px_-4px_#13ec5b66] active:scale-[0.98] transition-transform disabled:opacity-50"
                     onClick={handleConfirm}
@@ -40,7 +40,7 @@ export function PaymentButton() {
                         </>
                     )}
                 </button>
-                <div className="w-32 h-1.5 bg-white/20 rounded-full mx-auto mt-6 pointer-events-none" />
+                <div className="w-32 h-1.5 bg-white/20 rounded-full mx-auto mt-6 pointer-events-none lg:hidden" />
             </div>
         </div>
     );

@@ -97,15 +97,15 @@ export default function EventsPage() {
                     ))}
                 </div>
 
-                <StaggerList className="space-y-4 pb-32">
+                <StaggerList className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-32">
                     {events.map((event) => (
                         <StaggerItem key={event.id}>
                             <Link href="/event-detail" className="block group">
-                                <GlassCard className="p-3 rounded-xl flex gap-4 items-center group-hover:bg-white/5 transition-colors">
-                                    <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                                <GlassCard className="p-3 rounded-xl flex lg:flex-col gap-4 lg:gap-0 items-center lg:items-stretch group-hover:bg-white/5 transition-colors">
+                                    <div className="w-20 h-20 lg:w-full lg:h-48 rounded-lg overflow-hidden flex-shrink-0">
                                         <img className="w-full h-full object-cover" src={event.image} alt={event.title} />
                                     </div>
-                                    <div className="flex-grow">
+                                    <div className="flex-grow lg:p-3">
                                         <span className={`text-[10px] font-bold uppercase tracking-widest mb-1 block ${event.isGold ? 'text-gold' : 'text-primary'}`}>
                                             {event.date}
                                         </span>
@@ -114,7 +114,7 @@ export default function EventsPage() {
                                             <span className="material-icons text-xs">location_on</span> {event.location}
                                         </p>
                                     </div>
-                                    <div className="text-right">
+                                    <div className="text-right lg:px-3 lg:pb-3 lg:flex lg:justify-between lg:items-center">
                                         <div className="text-xs text-white/40">From</div>
                                         <div className="font-bold text-primary">{event.price}</div>
                                     </div>

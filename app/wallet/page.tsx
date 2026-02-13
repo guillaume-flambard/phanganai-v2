@@ -9,7 +9,7 @@ import { PageTransition } from '../../components/motion/PageTransition';
 
 export default function WalletPage() {
     return (
-        <div className="min-h-screen relative overflow-x-hidden pb-24">
+        <div className="min-h-screen relative overflow-x-hidden pb-24 lg:pb-8">
             {/* Background with jungle mesh */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="jungle-gradient absolute inset-0" />
@@ -18,21 +18,23 @@ export default function WalletPage() {
                 <div className="absolute bottom-40 left-0 -ml-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
             </div>
 
-            {/* iOS Status Bar Spacer */}
-            <div className="h-12 w-full" />
-
             {/* Main Content */}
-            <main className="w-full max-w-md mx-auto relative z-10 px-5">
+            <main className="w-full max-w-md lg:max-w-6xl mx-auto relative z-10 px-5 lg:px-8">
                 <PageTransition>
                     <WalletHeader />
-                    <BalanceCard />
-                    <QuickActions />
-                    <TransactionHistory />
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                        <div className="lg:col-span-5">
+                            <BalanceCard />
+                            <QuickActions />
+                        </div>
+                        <div className="lg:col-span-7">
+                            <TransactionHistory />
+                        </div>
+                    </div>
                 </PageTransition>
             </main>
 
             <BottomNav />
-            <div className="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-[60]" />
         </div>
     );
 }

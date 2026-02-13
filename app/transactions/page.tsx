@@ -38,7 +38,7 @@ export default function TransactionsPage() {
     const [expandedId, setExpandedId] = useState<string | null>(sections[0].transactions[0].id);
 
     return (
-        <div className="min-h-screen relative overflow-x-hidden pb-24">
+        <div className="min-h-screen relative overflow-x-hidden pb-24 lg:pb-8">
             {/* Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="jungle-gradient absolute inset-0" />
@@ -46,9 +46,7 @@ export default function TransactionsPage() {
                 <div className="absolute bottom-[20%] -right-[10%] w-[40%] h-[40%] bg-gold/10 rounded-full blur-[100px]" />
             </div>
 
-            <div className="h-12 w-full" />
-
-            <div className="w-full max-w-md mx-auto relative z-10">
+            <div className="w-full max-w-md lg:max-w-4xl mx-auto relative z-10">
                 <PageTransition variant={slideRightVariants}>
                     {/* Header */}
                     <header className="px-5 py-4 sticky top-0 z-40 bg-background-dark/80 ios-blur">
@@ -140,7 +138,6 @@ export default function TransactionsPage() {
             </div>
 
             <BottomNav />
-            <div className="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-[60]" />
         </div>
     );
 }

@@ -11,7 +11,7 @@ export function EventHero() {
     const [liked, setLiked] = useState(false);
 
     return (
-        <div className="relative h-[450px] w-full overflow-hidden -mx-5">
+        <div className="relative h-[500px] w-screen -ml-5 lg:ml-0 lg:w-full lg:rounded-2xl overflow-hidden" style={{ marginTop: '-1rem' }}>
             <img
                 alt="OXA Koh Phangan"
                 className="w-full h-full object-cover"

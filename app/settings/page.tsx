@@ -6,11 +6,12 @@ import { MobileLayout } from '../../components/layout/MobileLayout';
 import { PageTransition } from '../../components/motion/PageTransition';
 import { StaggerList, StaggerItem } from '../../components/motion/StaggerList';
 import { slideRightVariants } from '../../lib/animations';
+import { haptics } from '../../lib/haptics';
 
 function Toggle({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) {
     return (
         <button
-            onClick={onToggle}
+            onClick={() => { haptics.impact('light'); onToggle(); }}
             className={`relative w-11 h-6 rounded-full transition-colors ${enabled ? 'bg-primary' : 'bg-white/20'}`}
             role="switch"
             aria-checked={enabled}

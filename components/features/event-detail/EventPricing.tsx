@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
 import { GlassCard } from '../../ui/GlassCard';
+import { FadeIn } from '../../motion/FadeIn';
 
 export function EventPricing() {
     return (
+        <FadeIn>
         <GlassCard className="rounded-xl p-5 border-primary/20 bg-primary/5">
             <h3 className="text-sm font-bold uppercase tracking-widest text-primary/80 mb-4">Pricing Breakdown</h3>
             <div className="space-y-3">
@@ -20,5 +24,6 @@ export function EventPricing() {
                 </div>
             </div>
         </GlassCard>
+        </FadeIn>
     );
 }

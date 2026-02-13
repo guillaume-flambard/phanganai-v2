@@ -46,7 +46,7 @@ export default function ProfilePage() {
                     </Link>
                 </header>
 
-                <main className="flex-1 space-y-6 pb-32">
+                <main className="flex-1 space-y-6 pb-32 lg:pb-8">
                     {/* Loyalty Progress Card */}
                     <section className="bg-surface-dark rounded-xl p-6 border border-white/5 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16" />
@@ -95,7 +95,7 @@ export default function ProfilePage() {
                     <div className="space-y-2">
                         <h4 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] ml-2 mb-3">Account Management</h4>
 
-                        <StaggerList className="space-y-2">
+                        <StaggerList className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-3 lg:space-y-0">
                             <StaggerItem>
                                 <Link href="/ticket" className="flex items-center justify-between p-4 bg-white/5 rounded-xl active:bg-white/10 transition-colors">
                                     <div className="flex items-center gap-4">

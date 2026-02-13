@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import { GlassCard } from '../../ui/GlassCard';
+import { StaggerList, StaggerItem } from '../../motion/StaggerList';
 
 const events = [
     {
@@ -36,11 +39,12 @@ import Link from 'next/link';
 
 export function DiscoveryFeed() {
     return (
-        <section className="px-6 pb-32">
+        <section className="px-6 lg:px-0 pb-32 lg:pb-8">
             <h2 className="text-lg font-bold tracking-tight mb-4">Discovery Feed</h2>
-            <div className="space-y-4">
+            <StaggerList className="space-y-4 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
                 {events.map((event) => (
-                    <Link href="/event-detail" key={event.id} className="block group">
+                    <StaggerItem key={event.id}>
+                    <Link href="/event-detail" className="block group">
                         <GlassCard className="p-3 rounded-xl flex gap-4 items-center group-hover:bg-white/5 transition-colors">
                             <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                                 <img className="w-full h-full object-cover" src={event.image} alt={event.title} />
@@ -65,8 +69,9 @@ export function DiscoveryFeed() {
                             </div>
                         </GlassCard>
                     </Link>
+                    </StaggerItem>
                 ))}
-            </div>
+            </StaggerList>
         </section>
     );
 }

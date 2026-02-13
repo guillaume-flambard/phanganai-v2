@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { ServiceWorkerRegistrar } from "../components/ServiceWorkerRegistrar";
 import { ToastProvider } from "../components/ui/ToastProvider";
+import { DesktopSidebar } from "../components/navigation/DesktopSidebar";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -44,7 +45,10 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} antialiased bg-background-dark text-white font-display`}
       >
-        {children}
+        <DesktopSidebar />
+        <div className="lg:pl-64">
+          {children}
+        </div>
         <ToastProvider />
         <ServiceWorkerRegistrar />
       </body>

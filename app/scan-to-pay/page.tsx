@@ -29,7 +29,7 @@ export default function ScanToPayPage() {
     return (
         <MobileLayout className="pb-0">
             <PageTransition variant={slideUpVariants}>
-                <div className="relative flex flex-col" style={{ minHeight: 'calc(100vh - 3rem)' }}>
+                <div className="relative flex flex-col lg:flex-row lg:gap-8 lg:items-start" style={{ minHeight: 'calc(100vh - 3rem)' }}>
                     {/* Top Navigation */}
                     <header className="absolute top-0 left-0 right-0 z-50 p-6 flex items-center justify-between">
                         <button

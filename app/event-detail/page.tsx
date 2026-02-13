@@ -15,18 +15,32 @@ export default function EventDetailPage() {
     return (
         <MobileLayout className="pb-32">
             <PageTransition variant={slideRightVariants}>
-                <EventHero />
-
-                <div className="px-6 py-8 space-y-8">
-                    <EventMeta />
-                    <EventLineup />
-                    <FadeIn><EventPricing /></FadeIn>
-                    <FadeIn><EventAbout /></FadeIn>
-                    <FadeIn><EventMap /></FadeIn>
+                <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                    {/* Left: Hero + About */}
+                    <div className="lg:col-span-7">
+                        <EventHero />
+                        <div className="px-6 pt-4 pb-8 space-y-8 lg:px-0">
+                            <EventLineup />
+                            <FadeIn><EventAbout /></FadeIn>
+                            <FadeIn><EventMap /></FadeIn>
+                        </div>
+                    </div>
+                    {/* Right: Meta + Pricing (sticky on desktop) */}
+                    <div className="lg:col-span-5 px-6 lg:px-0 lg:pt-8">
+                        <div className="lg:sticky lg:top-8 space-y-8">
+                            <EventMeta />
+                            <FadeIn><EventPricing /></FadeIn>
+                            <div className="hidden lg:block">
+                                <EventFooter />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </PageTransition>
 
-            <EventFooter />
+            <div className="lg:hidden">
+                <EventFooter />
+            </div>
         </MobileLayout>
     );
 }

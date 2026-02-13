@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { StaggerList, StaggerItem } from '../../motion/StaggerList';
 
 const transactions = [
     {
@@ -49,10 +52,10 @@ export function TransactionHistory() {
                     View all
                 </Link>
             </div>
-            <div className="space-y-3">
+            <StaggerList className="space-y-3">
                 {transactions.map((tx) => (
+                    <StaggerItem key={tx.label}>
                     <div
-                        key={tx.label}
                         className="p-4 bg-surface-dark/40 border border-white/5 rounded-xl flex items-center justify-between hover:bg-primary/5 transition-colors cursor-pointer"
                     >
                         <div className="flex items-center gap-4">
@@ -66,8 +69,9 @@ export function TransactionHistory() {
                         </div>
                         <p className={`text-sm font-bold ${tx.amountColor}`}>{tx.amount}</p>
                     </div>
+                    </StaggerItem>
                 ))}
-            </div>
+            </StaggerList>
         </section>
     );
 }

@@ -36,7 +36,7 @@ export default function VenueTicketPage() {
             </div>
 
             {/* Main Content */}
-            <main className="relative z-10 flex flex-col items-center justify-between min-h-screen max-w-md mx-auto px-6 pt-12 pb-28">
+            <main className="relative z-10 flex flex-col items-center justify-between min-h-screen max-w-md lg:max-w-2xl mx-auto px-6 pt-12 lg:pt-8 pb-28 lg:pb-8">
                 <PageTransition variant={slideRightVariants}>
                     {/* Top Status Area */}
                     <div className="w-full flex justify-between items-center mb-8">
@@ -113,7 +113,6 @@ export default function VenueTicketPage() {
             <BottomNav />
 
             {/* iOS Home Indicator */}
-            <div className="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-[60]" />
         </div>
     );
 }

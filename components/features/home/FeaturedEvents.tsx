@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { StaggerList, StaggerItem } from '../../motion/StaggerList';
 
 const events = [
     {
@@ -28,9 +31,10 @@ export function FeaturedEvents() {
                 <Link className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="/events">View All</Link>
             </div>
 
-            <div className="flex gap-5 overflow-x-auto pb-6 -mx-5 px-5 hide-scrollbar">
+            <StaggerList className="flex gap-5 overflow-x-auto pb-6 -mx-5 px-5 hide-scrollbar lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 lg:overflow-visible">
                 {events.map((event) => (
-                    <Link href="/event-detail" key={event.id} className="min-w-[280px] relative group block">
+                    <StaggerItem key={event.id}>
+                    <Link href="/event-detail" className="min-w-[280px] lg:min-w-0 relative group block">
                         <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="glass-card rounded-xl overflow-hidden relative">
                             <div className="h-44 w-full relative">
@@ -54,8 +58,9 @@ export function FeaturedEvents() {
                             </div>
                         </div>
                     </Link>
+                    </StaggerItem>
                 ))}
-            </div>
+            </StaggerList>
         </section>
     );
 }
