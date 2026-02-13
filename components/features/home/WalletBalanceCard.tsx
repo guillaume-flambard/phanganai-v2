@@ -4,8 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import { FadeIn } from '../../motion/FadeIn';
 import { AnimatedCounter } from '../../motion/AnimatedCounter';
+import { useWallet } from '@/lib/hooks/use-wallet';
 
 export function WalletBalanceCard() {
+    const { wallet, loading } = useWallet();
+    const balanceTHB = wallet ? wallet.balance / 100 : 0;
+
     return (
         <FadeIn>
         <section className="mb-10">
@@ -16,9 +20,16 @@ export function WalletBalanceCard() {
                 <div className="flex justify-between items-start relative z-10">
                     <div>
                         <p className="text-[10px] uppercase tracking-widest text-[#ffd700]/70 font-bold mb-1">Available Credits</p>
-                        <h2 className="text-3xl font-bold text-white flex items-center gap-2">
-                            ฿<AnimatedCounter target={4250} /> <span className="text-sm font-medium text-[#ffd700]">THB</span>
-                        </h2>
+                        {loading ? (
+                            <div className="h-9 w-36 bg-white/10 rounded-lg animate-pulse" />
+                        ) : (
+                            <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+                                &#3647;<AnimatedCounter target={balanceTHB} /> <span className="text-sm font-medium text-[#ffd700]">THB</span>
+                            </h2>
+                        )}
+                        {!wallet && !loading && (
+                            <p className="text-[10px] text-white/40 mt-1">Sign in to view balance</p>
+                        )}
                     </div>
                     <div className="bg-[#ffd700]/10 w-10 h-10 rounded-xl flex items-center justify-center">
                         <span className="material-icons text-[#ffd700] text-2xl">account_balance_wallet</span>
