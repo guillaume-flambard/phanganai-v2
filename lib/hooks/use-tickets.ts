@@ -16,7 +16,7 @@ export function useTickets() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) { setTickets([]); setLoading(false); return; }
+    if (!user) return;
 
     const fetch = async () => {
       const { data: rawTickets } = await supabase

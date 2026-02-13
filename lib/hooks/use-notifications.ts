@@ -12,7 +12,7 @@ export function useNotifications() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) { setNotifications([]); setUnreadCount(0); setLoading(false); return; }
+    if (!user) return;
 
     const fetch = async () => {
       const { data } = await supabase

@@ -11,23 +11,28 @@ export function useProfile() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) { setProfile(null); setLoading(false); return; }
+    if (!user) return;
 
-    const fetch = async () => {
+    let cancelled = false;
+    const fetchProfile = async () => {
       const { data } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single();
-      setProfile(data as Profile | null);
-      setLoading(false);
+      if (!cancelled) {
+        setProfile(data as Profile | null);
+        setLoading(false);
+      }
     };
-    fetch();
+    fetchProfile();
+    return () => { cancelled = true; };
   }, [user]);
 
   const updateProfile = async (updates: Partial<Profile>) => {
     if (!user) return;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data, error } = await (supabase.from('profiles') as any)
       .update(updates)
       .eq('id', user.id)

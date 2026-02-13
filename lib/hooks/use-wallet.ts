@@ -11,7 +11,7 @@ export function useWallet() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) { setWallet(null); setLoading(false); return; }
+    if (!user) return;
 
     const fetch = async () => {
       const { data } = await supabase
@@ -48,7 +48,7 @@ export function useTransactions(limit = 20) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) { setTransactions([]); setLoading(false); return; }
+    if (!user) return;
 
     const fetch = async () => {
       const { data: rawWallet } = await supabase
