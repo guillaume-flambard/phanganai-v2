@@ -20,7 +20,7 @@ export function HomeHeader() {
                     <h1 className="text-2xl font-bold tracking-tight">{displayName.toUpperCase()} <span className="text-primary">.</span></h1>
                 )}
             </div>
-            <Link href="/profile" className="relative">
+            <Link href="/profile" aria-label="Profile" className="relative">
                 <div className="w-12 h-12 rounded-xl overflow-hidden ring-2 ring-primary/30">
                     {loading ? (
                         <div className="w-full h-full bg-white/10 animate-pulse" />

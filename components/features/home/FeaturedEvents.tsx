@@ -33,7 +33,7 @@ export function FeaturedEvents() {
         return (
             <section className="mb-10">
                 <div className="flex justify-between items-end mb-5">
-                    <h3 className="text-xl font-bold tracking-tight">FEATURED RAVES</h3>
+                    <h2 className="text-xl font-bold tracking-tight">FEATURED RAVES</h2>
                     <Link className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="/events">View All</Link>
                 </div>
                 <div className="flex gap-5 overflow-x-auto pb-6 -mx-5 px-5 hide-scrollbar lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 lg:overflow-visible">
@@ -56,7 +56,7 @@ export function FeaturedEvents() {
     return (
         <section className="mb-10">
             <div className="flex justify-between items-end mb-5">
-                <h3 className="text-xl font-bold tracking-tight">FEATURED RAVES</h3>
+                <h2 className="text-xl font-bold tracking-tight">FEATURED RAVES</h2>
                 <Link className="text-primary text-xs font-bold uppercase tracking-widest border-b border-primary/30 pb-0.5" href="/events">View All</Link>
             </div>
 

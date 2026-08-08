@@ -1,31 +1,12 @@
 [
   {
     "viewport": "mobile-375",
-    "violations": [
-      {
-        "id": "link-name",
-        "impact": "serious",
-        "help": "Links must have discernible text",
-        "nodes": [
-          {
-            "target": ".relative[href$=\"profile\"]",
-            "summary": "Fix all of the following:"
-          }
-        ]
-      },
-      {
-        "id": "meta-viewport",
-        "impact": "moderate",
-        "help": "Zooming and scaling must not be disabled",
-        "nodes": [
-          {
-            "target": "meta[name=\"viewport\"]",
-            "summary": "Fix any of the following:"
-          }
-        ]
-      }
-    ],
+    "violations": [],
     "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
@@ -34,31 +15,12 @@
   },
   {
     "viewport": "tablet-768",
-    "violations": [
-      {
-        "id": "link-name",
-        "impact": "serious",
-        "help": "Links must have discernible text",
-        "nodes": [
-          {
-            "target": ".relative[href$=\"profile\"]",
-            "summary": "Fix all of the following:"
-          }
-        ]
-      },
-      {
-        "id": "meta-viewport",
-        "impact": "moderate",
-        "help": "Zooming and scaling must not be disabled",
-        "nodes": [
-          {
-            "target": "meta[name=\"viewport\"]",
-            "summary": "Fix any of the following:"
-          }
-        ]
-      }
-    ],
+    "violations": [],
     "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
@@ -67,31 +29,12 @@
   },
   {
     "viewport": "desktop-1280",
-    "violations": [
-      {
-        "id": "link-name",
-        "impact": "serious",
-        "help": "Links must have discernible text",
-        "nodes": [
-          {
-            "target": ".relative[href$=\"profile\"]",
-            "summary": "Fix all of the following:"
-          }
-        ]
-      },
-      {
-        "id": "meta-viewport",
-        "impact": "moderate",
-        "help": "Zooming and scaling must not be disabled",
-        "nodes": [
-          {
-            "target": "meta[name=\"viewport\"]",
-            "summary": "Fix any of the following:"
-          }
-        ]
-      }
-    ],
+    "violations": [],
     "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
       "Failed to load resource: net::ERR_CONNECTION_REFUSED",
