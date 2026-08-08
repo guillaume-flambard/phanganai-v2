@@ -30,3 +30,16 @@ Evidence: gates 2026-08-08 10:59, walk+axe 11:02, screens in `.superflow/screens
 - App renders empty because every query to `/rest/v1/*` gets `ERR_CONNECTION_REFUSED`.
 - Not a build failure: `npm run build` passes clean without the DB (all routes static/prerendered).
 - To restore runtime: start local Supabase — `npx supabase start` (creates `config.toml`; long-running infra, intentionally NOT spun up here). Or point `.env.local` at a hosted Supabase project (needs URL + anon key swap).
+
+---
+
+## A11y remediation run (2026-08-08 ~11:45)
+
+| check | result |
+|---|---|
+| boot | dev :3210 (3100 déjà pris par le site Largo IA — premier scan faussé, re-scanné sur le bon app) |
+| axe (3 viewports) | **0 violations** (link-name, meta-viewport, heading-order corrigés) |
+| gates | `npx tsc --noEmit` exit 0 · `npm run build` exit 0 (17 static routes) |
+| committed | yes — `924ef8c`, pushed |
+| fixes | ① `HomeHeader.tsx:23` — link profil avatar sans accessible name (state skeleton/pulse) → `aria-label="Profile"` ② `layout.tsx` viewport — retiré `maximumScale:1` + `userScalable:false` (zoom désactivé) → `width=device-width, initial-scale=1, viewport-fit=cover` ③ `FeaturedEvents.tsx` — `h3` FEATURED RAVES → `h2` (ordre de titres, skip h2) |
+| reste | 8 consoleErrors `ERR_CONNECTION_REFUSED` Supabase local (P1 infra, hors a11y) — app rend en skeleton sans `supabase start` |
